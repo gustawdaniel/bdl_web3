@@ -21,6 +21,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to registry
-      run: docker login -u 	${{ env.DOCKER_TOKEN }} -p ${{ env.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
+      run: docker login -u 	${{ secrets.DOCKER_TOKEN }} -p ${{ secrets.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
     - name: Build the Docker image
       run: docker push registry.digitalocean.com/main/bdl-web3-node-api
