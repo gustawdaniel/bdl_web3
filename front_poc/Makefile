@@ -1,0 +1,4 @@
+
+
+up:
+	npm run dev
