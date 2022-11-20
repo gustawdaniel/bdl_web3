@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: [ "prod" ]
-    paths: [ "api_node" ]
+    paths: [ 'api_node/**' ]
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
