@@ -7,28 +7,28 @@ on:
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
+  HOST: 164.92.128.224
 
 jobs:
-  build:
+  image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: cd api_node && docker build . --file Dockerfile --tag registry.digitalocean.com/main/bdl-web3-node-api
-
-  push:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
     - name: Login to registry
       run: docker login -u 	${{ secrets.DOCKER_TOKEN }} -p ${{ secrets.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
     - name: Build the Docker image
       run: docker push registry.digitalocean.com/main/bdl-web3-node-api
-    needs: build
 
   reload:
     runs-on: ubuntu-latest
     steps:
-      - name: Waiting for implementation
-        run: echo "ok"
-    needs: push
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.HOST }}
+          username: root
+          key: ${{ secrets.KEY }}
+          script: whoami
+    needs: image
