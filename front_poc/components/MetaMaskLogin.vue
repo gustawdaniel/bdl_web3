@@ -22,7 +22,6 @@ import {ref} from 'vue'
 import {useState, useRuntimeConfig, computed, getWeb3} from '#imports';
 import HelloWorld from '../assets/contracts/HelloWorld.sol/HelloWorld.json';
 import {AbiItem} from "web3-utils";
-import {a} from "vite-node/types-257c4f87";
 import {Transaction, TransactionReceipt} from "web3-core";
 
 const config = useRuntimeConfig()
@@ -51,7 +50,7 @@ const myContractAddress = config.public.contractAddress;
 async function setMessage() {
   console.log(text.value);
   console.log(1);
-  const web3 = getWeb3();
+  const web3 = getWeb3(undefined);
   console.log(2);
 
   console.log(window.web3);

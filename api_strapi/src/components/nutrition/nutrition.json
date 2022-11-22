@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_nutrition_nutritions",
+  "info": {
+    "displayName": "nutrition",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "decimal",
+      "required": true,
+      "default": 1
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": [
+        "g",
+        "kcal",
+        "item"
+      ]
+    }
+  }
+}
