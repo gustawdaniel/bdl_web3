@@ -4,7 +4,7 @@ services:
   strapi:
     image: registry.digitalocean.com/main/bdl-web3-strapi-api
     ports:
-      - "${VIRTUAL_PORT}:1337"
+      - "1337:1337"
     environment:
       - HOST
 #      - DATABASE_HOST
@@ -26,8 +26,8 @@ services:
       - LETSENCRYPT_HOST
       - VIRTUAL_PORT
     volumes:
-      - "./data:.tmp"
-      - "./uploads:public/uploads"
+      - "./data:/srv/app/.tmp:rw"
+      - "./uploads:/srv/app/public/uploads:rw"
 
 networks:
   default:
