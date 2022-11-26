@@ -1,0 +1,24 @@
+---
+- name: Deploy Arikaso
+  hosts: api
+  tags:
+    - deploy
+  vars:
+    path: "/root/{{ dir }}"
+  tasks:
+    - name: Creates directory
+      file:
+        path: "{{ path }}"
+        state: directory
+    - name: Copy Docker Compose
+      copy:
+        src: ./docker-compose.yml
+        dest: "{{ path }}/docker-compose.yml"
+    - name: Copy .env
+      copy:
+        src: ./.env
+        dest: "{{ path }}/.env"
+    - name: Reload Compose
+      community.general.docker_compose:
+        pull: yes
+        project_src: "{{ path }}"
