@@ -26,8 +26,8 @@ services:
       - LETSENCRYPT_HOST
       - VIRTUAL_PORT
     volumes:
-      - "./data:/srv/app/.tmp:rw"
-      - "./uploads:/srv/app/public/uploads:rw"
+      - "./data:/opt/app/.tmp:rw"
+      - "./uploads:/opt/app/public/uploads:rw"
 
 networks:
   default:
