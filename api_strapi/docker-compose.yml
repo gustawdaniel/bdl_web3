@@ -4,7 +4,7 @@ services:
   strapi:
     image: registry.digitalocean.com/main/bdl-web3-strapi-api
     ports:
-      - ${VIRTUAL_PORT}:1337
+      - "${VIRTUAL_PORT}:1337"
     environment:
       - HOST
 #      - DATABASE_HOST

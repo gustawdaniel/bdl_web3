@@ -27,11 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: prepare env
-        run: echo "HOST=0.0.0.0
+        run: |
+          ENV=$(cat << EOF
+          HOST=0.0.0.0
           PORT=1337
           VIRTUAL_HOST=strapi.admeal.shop
           LETSENCRYPT_HOST=strapi.admeal.shop
-          VIRTUAL_PORT=1337" > api_strapi/.env
+          VIRTUAL_PORT=1337
+          EOF
+          )
+          echo "$ENV" > api_strapi/.env
       - name: read env
         run: cat api_strapi/.env
       - name: Run playbook
