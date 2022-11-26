@@ -3,11 +3,12 @@ name: Docker Image CI
 on:
   push:
     branches: [ "prod" ]
-    paths: [ 'api_node/**' ]
+    paths: [ 'api_strapi/**' ]
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
-  HOST: 164.92.128.224
+  USERNAME: root
+  HOST: 165.22.29.8
 
 jobs:
   image:
@@ -15,20 +16,28 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: cd api_node && docker build . --file Dockerfile --tag registry.digitalocean.com/main/bdl-web3-node-api
+      run: cd api_node && docker build . --file Dockerfile --tag registry.digitalocean.com/main/bdl-web3-strapi-api
     - name: Login to registry
       run: docker login -u 	${{ secrets.DOCKER_TOKEN }} -p ${{ secrets.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
     - name: Build the Docker image
-      run: docker push registry.digitalocean.com/main/bdl-web3-node-api
+      run: docker push registry.digitalocean.com/main/bdl-web3-strapi-api
 
   reload:
     runs-on: ubuntu-latest
     steps:
+      - name: copy docker-compose.yml
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ env.HOST }}
+          username: ${{ env.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "~/web3/docker-compose.yml"
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
           host: ${{ env.HOST }}
-          username: root
-          key: ${{ secrets.KEY }}
+          username: ${{ env.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: whoami
     needs: image
