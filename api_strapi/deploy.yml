@@ -17,7 +17,11 @@
     - name: Copy .env
       copy:
         src: ./.env
-        dest: "{{ path }}/.env"
+        dest: "{{ path }}/.env.pub"
+    - name:
+      shell:
+        cmd: sort -u -t '=' -k 1,1 .env.pub .env > .env.build && mv .env.build .env
+        chdir: "{{ path }}"
     - name: Reload Compose
       community.general.docker_compose:
         pull: yes

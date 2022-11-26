@@ -3,3 +3,6 @@ node_modules: package.json
 
 up: node_modules
 	npm run develop
+
+ssh:
+	ssh -t root@165.22.29.8 "cd strapi && bash"
