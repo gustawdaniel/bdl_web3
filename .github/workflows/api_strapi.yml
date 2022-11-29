@@ -3,7 +3,7 @@ name: Strapi
 on:
   push:
     branches: [ "prod" ]
-    paths: [ 'api_strapi' ]
+    paths: [ 'api_strapi/**' ]
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
