@@ -8,12 +8,13 @@ interface SearchParameters {
   [key: string]: any;
 }
 
-const pageSize = ref<number>(2)
+const pageSize = ref<number>(6)
 const page = ref<number>(1)
 const query = ref<SearchParameters>({
   'pagination[pageSize]': pageSize.value,
   'pagination[page]': page.value,
-  'populate': 'recipe,ingredients_image,meal_image'
+  'populate': 'recipe,ingredients_image,meal_image',
+  'sort': 'createdAt:desc'
 })
 
 const {

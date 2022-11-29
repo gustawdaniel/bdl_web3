@@ -30,9 +30,11 @@ jobs:
         run: |
           ENV=$(cat << EOF
           NUXT_PUBLIC_BASE_URL=https://strapi.admeal.xyz
-          VIRTUAL_HOST=admeal.shop
-          LETSENCRYPT_HOST=admeal.shop
+          VIRTUAL_HOST=admeal.xyz
+          LETSENCRYPT_HOST=admeal.xyz
           VIRTUAL_PORT=3000
+          NITRO_HOST=0.0.0.0
+          NITRO_PORT=3000
           EOF
           )
           echo "$ENV" > front_nuxt/.env
