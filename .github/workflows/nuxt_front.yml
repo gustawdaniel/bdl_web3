@@ -3,7 +3,7 @@ name: Nuxt
 on:
   push:
     branches: [ "prod" ]
-    paths: [ 'nuxt_front/**' ]
+    paths: [ 'front_nuxt/**' ]
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
