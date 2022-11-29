@@ -1,7 +1,3 @@
-/**
- * meal controller
- */
-
 import { factories } from '@strapi/strapi'
 
 export default factories.createCoreController('api::meal.meal',  ({ strapi }) =>  ({
@@ -34,7 +30,11 @@ export default factories.createCoreController('api::meal.meal',  ({ strapi }) =>
       ctx.request.body.data.adm_token = 100;
     }
     if(ctx.request.body.data.meal_image) {
-      const recipe = await strapi.service('api::recipe.recipe').findOne(ctx.params.id, {}) as {dish_revard_for_cooking: number}
+      const meal = await strapi.service('api::meal.meal').findOne(ctx.params.id, {
+        populate: 'recipe'
+      });
+      console.log(meal);
+      const recipe = await strapi.service('api::recipe.recipe').findOne(meal.recipe.id, {}) as {dish_revard_for_cooking: number}
       console.log("recipe", recipe);
       ctx.request.body.data.dish_token = recipe.dish_revard_for_cooking;
     }

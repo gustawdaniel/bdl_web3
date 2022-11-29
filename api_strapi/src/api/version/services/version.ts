@@ -1,0 +1,5 @@
+/**
+ * version service
+ */
+
+export default () => ({});

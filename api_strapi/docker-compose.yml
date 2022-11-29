@@ -3,6 +3,8 @@ version: '3'
 services:
   strapi:
     image: registry.digitalocean.com/main/bdl-web3-strapi-api
+    env_file:
+      - .env
     ports:
       - "1337:1337"
     environment:
