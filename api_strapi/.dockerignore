@@ -1,0 +1,7 @@
+.idea
+.tmp
+dist
+node_modules
+.strapi-updater.json
+docker-compose.yml
+Dockerfile

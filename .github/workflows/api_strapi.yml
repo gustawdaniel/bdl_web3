@@ -1,0 +1,55 @@
+name: Strapi
+
+on:
+  push:
+    branches: [ "prod" ]
+    paths: [ 'api_strapi/**' ]
+
+env:
+  DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
+  USERNAME: root
+  HOST: 165.22.29.8
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: cd api_strapi && docker build . --file Dockerfile --tag registry.digitalocean.com/main/bdl-web3-strapi-api
+    - name: Login to registry
+      run: docker login -u 	${{ secrets.DOCKER_TOKEN }} -p ${{ secrets.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
+    - name: Build the Docker image
+      run: docker push registry.digitalocean.com/main/bdl-web3-strapi-api
+
+  reload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: prepare env
+        run: |
+          ENV=$(cat << EOF
+          HOST=0.0.0.0
+          PORT=1337
+          VIRTUAL_HOST=strapi.admeal.xyz
+          LETSENCRYPT_HOST=strapi.admeal.xyz
+          VIRTUAL_PORT=1337
+          EOF
+          )
+          echo "$ENV" > api_strapi/.env
+      - name: read env
+        run: cat api_strapi/.env
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yml
+          directory: ./api_strapi
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [local]
+            127.0.0.1 env=prod dir=strapi
+            
+            [api]
+            165.22.29.8 ansible_user=root dir=strapi
+
+    needs: image

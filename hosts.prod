@@ -1,0 +1,5 @@
+[local]
+127.0.0.1 env=prod
+
+[api]
+164.90.177.206 ansible_user=root env=prod dir=api_node

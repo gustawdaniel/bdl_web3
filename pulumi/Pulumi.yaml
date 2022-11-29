@@ -1,0 +1,3 @@
+name: bdl
+description: A minimal DigitalOcean TypeScript Pulumi program
+runtime: nodejs

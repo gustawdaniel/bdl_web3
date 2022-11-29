@@ -1,0 +1,54 @@
+name: Nuxt
+
+on:
+  push:
+    branches: [ "prod" ]
+    paths: [ 'nuxt_front/**' ]
+
+env:
+  DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
+  USERNAME: root
+  HOST: 165.22.29.8
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: cd front_nuxt && docker build . --file Dockerfile --tag registry.digitalocean.com/main/bdl-web3-nuxt-front
+    - name: Login to registry
+      run: docker login -u 	${{ secrets.DOCKER_TOKEN }} -p ${{ secrets.DOCKER_TOKEN }} ${{ env.DOCKER_REGISTRY_DOMAIN }}
+    - name: Build the Docker image
+      run: docker push registry.digitalocean.com/main/bdl-web3-nuxt-front
+
+  reload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: prepare env
+        run: |
+          ENV=$(cat << EOF
+          NUXT_PUBLIC_BASE_URL=https://strapi.admeal.xyz
+          VIRTUAL_HOST=admeal.shop
+          LETSENCRYPT_HOST=admeal.shop
+          VIRTUAL_PORT=3000
+          EOF
+          )
+          echo "$ENV" > front_nuxt/.env
+      - name: read env
+        run: cat front_nuxt/.env
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy.yml
+          directory: ./front_nuxt
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [local]
+            127.0.0.1 env=prod dir=strapi
+            
+            [api]
+            165.22.29.8 ansible_user=root dir=nuxt
+
+    needs: image

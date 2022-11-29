@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "recipe",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "cooking_time_value": {
+      "type": "integer"
+    },
+    "cooking_time_unit": {
+      "type": "enumeration",
+      "enum": [
+        "min",
+        "hour"
+      ]
+    },
+    "servings": {
+      "type": "integer"
+    },
+    "dish_revard_for_cooking": {
+      "type": "decimal"
+    },
+    "cooking_counter": {
+      "type": "integer",
+      "default": 0
+    },
+    "nutrition": {
+      "displayName": "nutrition",
+      "type": "component",
+      "repeatable": true,
+      "component": "nutrition.nutrition"
+    },
+    "ingredients": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ingredient.ingredient"
+    },
+    "meals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meal.meal",
+      "mappedBy": "recipe"
+    }
+  }
+}
