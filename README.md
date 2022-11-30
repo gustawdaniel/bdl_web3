@@ -6,5 +6,6 @@ Current frontend status:
 - not installed tailwind, we should follow this https://frontendshape.com/post/how-to-install-tailwind-css-3-in-nuxt-3
 - i recomend local development so everyone that will write code should clone our repo https://github.com/gustawdaniel/bdl_web3 and type `make up` in front_nuxt and api_strapi
 
-branch main to dev
-branch prod to deploy
+> branch main to dev
+> 
+> branch prod to deploy
