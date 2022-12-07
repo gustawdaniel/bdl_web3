@@ -60,6 +60,9 @@
       "relation": "oneToMany",
       "target": "api::meal.meal",
       "mappedBy": "recipe"
+    },
+    "instruction": {
+      "type": "richtext"
     }
   }
 }
