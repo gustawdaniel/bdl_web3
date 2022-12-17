@@ -5,6 +5,9 @@ Todo:
 - [ ] Forgot password
 - [ ] Remember me
 - [ ] Get started
+- [ ] Username and surname ( should we collect? )
+- [ ] Challenges number
+- [ ] Messages number
 
 ---
 
