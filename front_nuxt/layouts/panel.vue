@@ -33,16 +33,16 @@
                   <NuxtLink v-for="item in navigation" :key="item.name" :to="item.to"
                      :class="
                      [item.current ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                     'group flex items-center px-2 py-2 text-base font-medium rounded-md justify-between']">
+                     'group flex items-center px-2 py-2 my-4 text-base font-medium rounded-md justify-between']">
                     <div class="flex items-center">
                       <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-gray-400 group-hover:text-gray-500', 'mr-4 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
                       <span>{{ item.name }}</span>
                     </div>
-                    <span v-if="item.showNumber" class="bg-gray-300 rounded-full h-5 w-5 text-center text-xs text-zinc-400 leading-5">{{item.number}}</span>
+                    <span v-if="item.showNumber" class="bg-gray-100 rounded-full h-5 w-5 text-center text-xs text-zinc-400 leading-5">{{item.number}}</span>
                   </NuxtLink>
                 </nav>
               </div>
-              <div class="flex flex-shrink-0 border-t border-gray-200 p-4" v-if="user">
+              <div class="flex flex-shrink-0 border-t border-gray-200 p-4 bg-gray-100" v-if="user">
                 <NuxtLink to="/profile" class="group block flex-shrink-0 w-full">
                   <div class="flex items-center justify-between w-full">
                     <div class="ml-3">
@@ -77,16 +77,16 @@
                :key="item.name"
                :to="item.to"
                :class="[item.current ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-               'group flex items-center px-2 py-2 text-sm font-medium rounded-md justify-between']">
+               'group flex items-center px-2 py-2 my-4 text-sm font-medium rounded-md justify-between']">
               <div class="flex items-center">
                 <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-gray-400 group-hover:text-gray-500', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
                 <span>{{ item.name }}</span>
               </div>
-              <span v-if="item.showNumber" class="bg-gray-300 rounded-full h-5 w-5 text-center text-xs text-zinc-400 leading-5">{{item.number}}</span>
+              <span v-if="item.showNumber" class="bg-gray-100 rounded-full h-5 w-5 text-center text-xs text-zinc-400 leading-5">{{item.number}}</span>
             </NuxtLink>
           </nav>
         </div>
-        <div class="flex flex-shrink-0 border-t border-gray-200 p-4"  v-if="user">
+        <div class="flex flex-shrink-0 border-t border-gray-200 p-4 bg-gray-100"  v-if="user">
           <NuxtLink to="/profile" class="group block w-full flex-shrink-0">
             <div class="flex items-center justify-between w-full">
               <div class="ml-3">
@@ -132,25 +132,25 @@ import { ref } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {
   Bars3Icon,
-  ChatBubbleLeftEllipsisIcon,
   ShieldCheckIcon,
   NewspaperIcon,
   CalendarDaysIcon,
-  UserIcon,
-  Cog6ToothIcon,
+  BuildingStorefrontIcon,
   ClipboardDocumentListIcon,
   XMarkIcon,
+  WalletIcon,
+  ArrowRightOnRectangleIcon,
 } from '@heroicons/vue/24/outline'
 import {useCookie, useRouter, useRoute, watch} from "#imports";
 
 const navigation = ref([
-  { name: 'Profile', to: '/profile', icon: UserIcon, current: true },
-  { name: 'Recipes', to: '/recipes', icon: ClipboardDocumentListIcon, current: false },
-  { name: 'Challenges', to: '/challenges', icon: CalendarDaysIcon, current: false, number: 5, showNumber: true },
-  { name: 'Messages', to: '/messages', icon: ChatBubbleLeftEllipsisIcon, current: false, number: 3, showNumber: true },
-  { name: 'Settings', to: '/settings', icon: Cog6ToothIcon, current: false },
+  { name: 'Wallet', to: '/profile', icon: WalletIcon, current: false },
+  { name: 'Recipes', to: '/recipes', icon: ClipboardDocumentListIcon, current: true },
+  { name: 'My meals', to: '/meals', icon: CalendarDaysIcon, current: false, number: 5, showNumber: true },
+  { name: 'Market palce', to: '/marketplace', icon: BuildingStorefrontIcon, current: false },
   { name: 'News', to: '/news', icon: NewspaperIcon, current: false },
   { name: 'Help', to: '/help', icon: ShieldCheckIcon, current: false },
+  { name: 'Logout', to: '/logout', icon: ArrowRightOnRectangleIcon, current: false },
 ]);
 
 const route = useRoute();
@@ -176,5 +176,6 @@ watch(route, (to) => {
 //   console.log(to);
 // })
 
+// const sidebarOpen = ref(false)
 const sidebarOpen = ref(true)
 </script>

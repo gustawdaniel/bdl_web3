@@ -113,12 +113,12 @@ function togglePasswordShown() {
 </script>
 
 <template>
-    <hr>
-    <pre>PENDING: {{ pending }}</pre>
-    <pre>URL: {{ requestUrl }}</pre>
-    <pre>DATA: {{ data }}</pre>
-    <pre>ERROR: {{ error }}</pre>
-    <hr>
+<!--    <hr>-->
+<!--    <pre>PENDING: {{ pending }}</pre>-->
+<!--    <pre>URL: {{ requestUrl }}</pre>-->
+<!--    <pre>DATA: {{ data }}</pre>-->
+<!--    <pre>ERROR: {{ error }}</pre>-->
+<!--    <hr>-->
 
   <img src="/logo.svg" alt="Ad Meal" class="mb-8">
 

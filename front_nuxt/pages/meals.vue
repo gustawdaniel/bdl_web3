@@ -1,15 +1,15 @@
 <template>
-  <p>challenges</p>
+  <MainRecipesAndMealsPage page="meals"/>
 </template>
 
 <script setup lang="ts">
+import MainRecipesAndMealsPage from "~/components/MainRecipesAndMealsPage.vue";
 import {definePageMeta} from "#imports";
 
 definePageMeta({
   layout: 'panel'
 })
 </script>
-
 
 <style scoped>
 

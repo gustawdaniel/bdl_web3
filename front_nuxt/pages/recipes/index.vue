@@ -25,7 +25,7 @@ const {data, error, execute, pending} = await useLazyFetch<{ jwt: string }>(`${c
           alt="">
 
       <p>{{recipe.attributes.cooking_time_value}} {{recipe.attributes.cooking_time_unit}}</p>
-      <p>revard: {{recipe.attributes.dish_revard_for_cooking}}</p>
+      <p>reward: {{recipe.attributes.dish_reward_for_cooking}}</p>
       <p>cooked: {{recipe.attributes.cooking_counter}}</p>
       <nuxt-link :to="`/recipes/${recipe.id}`">
         <button>Go</button>

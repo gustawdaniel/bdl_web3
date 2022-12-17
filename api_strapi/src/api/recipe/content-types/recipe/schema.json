@@ -37,7 +37,7 @@
     "servings": {
       "type": "integer"
     },
-    "dish_revard_for_cooking": {
+    "dish_reward_for_cooking": {
       "type": "decimal"
     },
     "cooking_counter": {
@@ -63,6 +63,15 @@
     },
     "instruction": {
       "type": "richtext"
+    },
+    "is_popular": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "is_top_earning": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

@@ -1,13 +1,23 @@
 # Admeal Frontend
 
 Todo:
-- [ ] Login Page
+- [x] Login Page
 - [ ] Forgot password
 - [ ] Remember me
-- [ ] Get started
+- [x] Get started (register)
 - [ ] Username and surname ( should we collect? )
-- [ ] Challenges number
-- [ ] Messages number
+- [ ] Compute challenges number
+- [ ] Compute messages number
+- [x] Left menu (navigation)
+- [ ] action ingredients-photo
+- [ ] action meal-photo
+- [ ] action social-media
+- [ ] search in recipes
+- [ ] filter recipes
+- [ ] logout 
+
+Questions:
+- [ ] 
 
 ---
 
