@@ -19,13 +19,13 @@ function logout() {
 </script>
 
 <template>
-  <div>
-    <pre>{{ token }}</pre>
+  <div class="m-4">
+<!--    <pre>{{ token }}</pre>-->
 
 
     <div v-if="token">
 
-      <pre>{{ user }}</pre>
+<!--      <pre>{{ user }}</pre>-->
 
       <nuxt-link to="/profile">
         <button>Profile</button>
@@ -36,10 +36,10 @@ function logout() {
       <button @click="logout">Logout</button>
     </div>
     <div v-else>
-      <LoginByPassword @reload="reload"/>
-      <LoginByOTP @reload="reload"/>
+      <LoginByPassword @reload="reload" mode="login"/>
+<!--      <LoginByOTP @reload="reload"/>-->
 
-      <button @click="reload">reload</button>
+<!--      <button @click="reload">reload</button>-->
     </div>
   </div>
 </template>

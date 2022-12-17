@@ -5,4 +5,5 @@ export default defineNuxtConfig({
             baseUrl: process.env.NUXT_PUBLIC_BASE_URL ?? 'https://strapi.admeal.xyz',
         },
     },
+    modules: ['@nuxtjs/tailwindcss']
 })
