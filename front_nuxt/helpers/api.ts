@@ -5,6 +5,9 @@ export interface Image {
             formats?: {
                 medium?: {
                     url: string
+                },
+                thumbnail?: {
+                    url: string
                 }
             }
         }

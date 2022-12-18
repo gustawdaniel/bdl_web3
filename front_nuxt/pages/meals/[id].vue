@@ -7,14 +7,14 @@ const config = useRuntimeConfig();
 const token = useCookie('token')
 
 
-const screen = ref<number>(0);
+const screen = ref<number>(6);
 
 function prev() {
   if (screen.value > 0) screen.value--;
 }
 
 function next() {
-  if (screen.value < 8) screen.value++;
+  if (screen.value < 7) screen.value++;
 }
 
 const {
@@ -59,26 +59,24 @@ const {
 
     <SingleMealCard v-if="screen === 0" :meal="data.data" @next="next"/>
     <MealExcellentChoice v-if="screen === 1" :meal="data.data" @prev="prev"/>
-    <SingleMealUploadImage v-if="screen === 2" :meal="data.data"  imageKey="ingredients_image"/>
-    <SingleMealSuccess
-        v-if="screen === 3"
-        title="Great"
-        description="Now you can start cooking.
+    <SingleMealUploadImage v-if="screen === 2" :meal="data.data"
+                           @reload="execute"
+                           @prev="prev"
+                           @next="next"
+                           imageKey="ingredients_image"/>
 
-Can't wait to see the result!"
-    />
-    <SingleMealCard v-if="screen === 4" :meal="data.data"/>
-    <SingleMealUploadImage v-if="screen === 5" :meal="data.data"  imageKey="meal_image"/>
-    <SingleMealSuccess
-        v-if="screen === 6"
-        title="Looks delicious!"
-        description="The reward for cooking is already in your Wallet.
+    <SingleMealCard v-if="screen === 3" :meal="data.data"/>
+    <MealExcellentChoice v-if="screen === 4" :meal="data.data" @prev="prev"/>
 
-Check it and enjoy your meal!"
-    />
-    <SingleMealSetSocialLink v-if="screen === 7" :meal="data.data" @reload="execute"/>
+    <SingleMealUploadImage v-if="screen === 5" :meal="data.data"
+                           @reload="execute"
+                           @prev="prev"
+                           @next="next"
+                           imageKey="meal_image"/>
+
+    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute"/>
     <SingleMealSuccess
-        v-if="screen === 8"
+        v-if="screen === 7"
         title="Have a great day!"
         description="You can see history of your meals."
         :showHistory="true"
