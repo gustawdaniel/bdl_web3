@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pending">
+  <div v-if="pending && !data">
     Loading...
   </div>
   <div v-else-if="error">
@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts" setup>
-import {useLazyFetch, useRuntimeConfig} from "#imports";
+import {useLazyFetch, useRuntimeConfig,definePageMeta} from "#imports";
 const config = useRuntimeConfig();
 
 const {data, error, execute, pending} = await useLazyFetch<{ jwt: string }>(`${config.public.baseUrl}/api/recipes`, {
   query: {
     populate: 'photo',
     'filters[is_popular][$eq]': true
-  }
+  },
 })
 </script>
 

@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 
-import {ref, useCookie, useLazyFetch, useRoute, useRuntimeConfig, watch} from "#imports";
-const route = useRoute()
+import {ref, useCookie, useLazyFetch, useRuntimeConfig, watch} from "#imports";
+import {Meal} from "~/helpers/api";
 const config = useRuntimeConfig();
 const token = useCookie('token')
 const linkForm = ref<string>("");
 const linkBody = ref<{ data: {social_media_post: string} }>({data: {social_media_post: ''}});
+const props = defineProps<{
+  meal: Meal
+}>()
 
-const {data} = await useLazyFetch(`${config.public.baseUrl}/api/meals/${route.params.id}`, {
+const {data} = await useLazyFetch(`${config.public.baseUrl}/api/meals/${props.meal.id}`, {
   method: 'put',
   body: linkBody,
   immediate: false,

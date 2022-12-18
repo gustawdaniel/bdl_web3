@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pending">
+  <div v-if="pending && !data">
     Loading...
   </div>
   <div v-else-if="error">

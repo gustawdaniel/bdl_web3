@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import {ref, useCookie, useLazyFetch, useRoute, useRuntimeConfig, watch} from "#imports";
+import {Meal} from "~/helpers/api";
 
 const token = useCookie('token')
 const config = useRuntimeConfig();
 type ImageKey = 'meal_image' | 'ingredients_image';
 
 const props = defineProps<{
-  data: any
+  meal: Meal
   imageKey: ImageKey
 }>()
 const uploadBody = ref<FormData>(new FormData());
@@ -80,8 +81,8 @@ watch(setImageData, () => {
     <pre>KEY: {{props.imageKey}}</pre>
 
     <img
-        v-if="props.data.data.attributes[props.imageKey].data && props.data.data.attributes[props.imageKey].data.attributes.formats"
-        :src="`${config.public.baseUrl}${props.data.data.attributes[props.imageKey].data.attributes.formats.thumbnail.url}`"
+        v-if="props.meal.attributes[props.imageKey].data && props.meal.attributes[props.imageKey].data.attributes.formats"
+        :src="`${config.public.baseUrl}${props.meal.attributes[props.imageKey].data.attributes.formats.thumbnail.url}`"
         alt="">
 
     <input

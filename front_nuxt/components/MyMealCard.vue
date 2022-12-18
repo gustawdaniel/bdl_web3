@@ -47,26 +47,28 @@
 
 <script lang="ts" setup>
 import {Meal} from "~/helpers/api";
-import {computed, useRuntimeConfig} from "#imports";
+import {computed, useRouter, useRuntimeConfig} from "#imports";
 import adm from '../assets/adm.svg'
 import dish from '../assets/dish.svg'
 const config = useRuntimeConfig();
-
-function onClick(action) {
-  if(action === 'ingredients-photo') {
-
-  } else if (action === 'meal-photo') {
-
-  } else if( action === 'social-media') {
-
-  }
-}
+const ruter = useRouter();
 
 const props = defineProps<{ meal: Meal }>()
 
 const meal = computed<Meal>(() => {
   return props.meal;
 })
+
+function onClick(action) {
+  if(action === 'ingredients-photo') {
+    ruter.push(`/meals/${meal.value.id}?action=${action}`);
+  } else if (action === 'meal-photo') {
+    ruter.push(`/meals/${meal.value.id}?action=${action}`);
+  } else if( action === 'social-media') {
+    ruter.push(`/meals/${meal.value.id}?action=${action}`);
+  }
+}
+
 
 function photoUrl(meal: Meal): string {
   if (meal.attributes.meal_image?.data) {

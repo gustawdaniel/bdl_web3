@@ -172,6 +172,12 @@ watch(route, (to) => {
   }
 })
 
+import {definePageMeta} from "#imports";
+
+definePageMeta({
+  keepalive: true
+})
+
 // router.watch((to) => {
 //   console.log(to);
 // })

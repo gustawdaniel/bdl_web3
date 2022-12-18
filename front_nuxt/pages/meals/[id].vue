@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {ref, useCookie, useLazyFetch, useRoute, useRuntimeConfig, watch} from "#imports";
+import {Meal} from "~/helpers/api";
 
 const route = useRoute()
 const config = useRuntimeConfig();
@@ -20,11 +21,14 @@ const {
   data,
   pending,
   execute
-} = await useLazyFetch(`${config.public.baseUrl}/api/meals/${route.params.id}?populate=recipe,ingredients_image,meal_image`, {
+} = await useLazyFetch<{data: Meal}>(`${config.public.baseUrl}/api/meals/${route.params.id}`, {
   immediate: true,
   headers: {
     Authorization: `Bearer ${token.value}`
   },
+  query: {
+    populate: 'recipe,ingredients_image,meal_image,recipe.photo,recipe.nutrition,recipe.ingredients'
+  }
 })
 
 
@@ -53,8 +57,8 @@ const {
       <button @click="next">Next</button>
     </div>
 
-    <SingleMealCard v-if="screen === 0" :data="data"/>
-    <SingleMealUploadImage v-if="screen === 1" :data="data" @reload="execute" imageKey="ingredients_image"/>
+    <SingleMealCard v-if="screen === 0" :meal="data.data" @next="next"/>
+    <SingleMealUploadImage v-if="screen === 1" :meal="data.data" @reload="execute" imageKey="ingredients_image"/>
     <SingleMealSuccess
         v-if="screen === 2"
         title="Great"
@@ -62,8 +66,8 @@ const {
 
 Can't wait to see the result!"
     />
-    <SingleMealCard v-if="screen === 3" :data="data"/>
-    <SingleMealUploadImage v-if="screen === 4" :data="data" @reload="execute" imageKey="meal_image"/>
+    <SingleMealCard v-if="screen === 3" :meal="data.data"/>
+    <SingleMealUploadImage v-if="screen === 4" :meal="data.data" @reload="execute" imageKey="meal_image"/>
     <SingleMealSuccess
         v-if="screen === 5"
         title="Looks delicious!"
@@ -71,7 +75,7 @@ Can't wait to see the result!"
 
 Check it and enjoy your meal!"
     />
-    <SingleMealSetSocialLink v-if="screen === 6" :data="data" @reload="execute"/>
+    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute"/>
     <SingleMealSuccess
         v-if="screen === 7"
         title="Have a great day!"

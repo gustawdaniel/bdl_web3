@@ -11,16 +11,28 @@ export interface Image {
     } | null
 }
 
+export interface Nutrition {
+    id: number,
+    name: string
+    value: number
+    unit: string
+}
+
+export interface RecipeAttributes {
+    name: string
+    cooking_time_value: number,
+    dish_reward_for_cooking: number
+    cooking_counter: number,
+    cooking_time_unit: string
+    short_description: string
+    photo: Image
+    nutrition: Nutrition[]
+    ingredients: Nutrition[]
+}
+
 export interface Recipe {
     id: number,
-    attributes: {
-        name: string
-        cooking_time_value: number,
-        dish_reward_for_cooking: number
-        cooking_counter: number,
-        cooking_time_unit: string
-        photo: Image
-    }
+    attributes: RecipeAttributes
 }
 
 export interface Meal {

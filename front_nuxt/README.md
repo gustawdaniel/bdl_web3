@@ -6,8 +6,6 @@ Todo:
 - [ ] Remember me
 - [x] Get started (register)
 - [ ] Username and surname ( should we collect? )
-- [ ] Compute challenges number
-- [ ] Compute messages number
 - [x] Left menu (navigation)
 - [ ] action ingredients-photo
 - [ ] action meal-photo
@@ -15,6 +13,9 @@ Todo:
 - [ ] search in recipes
 - [ ] filter recipes
 - [ ] logout 
+- [ ] Nutrition scroll
+- [ ] meal instruction 
+- [ ] meal get token
 
 Questions:
 - [ ] 

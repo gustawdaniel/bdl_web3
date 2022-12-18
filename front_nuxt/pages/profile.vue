@@ -2,6 +2,7 @@
 import {definePageMeta, useCookie, useRouter} from "#imports";
 
 const user = useCookie('user');
+const token = useCookie('token');
 const router = useRouter();
 
 if(!user.value) {
@@ -18,5 +19,7 @@ definePageMeta({
     <p>Email: {{user.email}}</p>
 
     <nuxt-link to="/meals"><button>My meals</button></nuxt-link>
+
+    <pre>{{token}}</pre>
   </div>
 </template>

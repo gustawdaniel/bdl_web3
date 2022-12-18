@@ -3,8 +3,8 @@
     <header class="flex justify-between items-center">
       <h1 class="font-bold text-3xl">{{isRecipes ? 'Recipes' : 'My Meals'}}</h1>
       <div class="flex">
-        <component :is="MagnifyingGlassIcon" class="mr-3 flex-shrink-0 h-6 w-6"/>
-        <component :is="RectangleStackIcon" class="mr-3 flex-shrink-0 h-6 w-6"/>
+        <MagnifyingGlassIcon  class="mr-3 flex-shrink-0 h-6 w-6"/>
+        <RectangleStackIcon  class="mr-3 flex-shrink-0 h-6 w-6"/>
       </div>
     </header>
 
@@ -25,6 +25,17 @@
         <component :is="tab.component"/>
       </div>
     </main>
+
+<!--    <div>-->
+<!--      <img-->
+<!--          v-if="meal.attributes['ingredients_image'].data && meal.attributes['ingredients_image'].data.attributes.formats"-->
+<!--          :src="`${config.public.baseUrl}${meal.attributes['ingredients_image'].data.attributes.formats.thumbnail.url}`"-->
+<!--          alt="">-->
+<!--      <img-->
+<!--          v-if="meal.attributes['meal_image'].data && meal.attributes['meal_image'].data.attributes.formats"-->
+<!--          :src="`${config.public.baseUrl}${meal.attributes['meal_image'].data.attributes.formats.thumbnail.url}`"-->
+<!--          alt="">-->
+<!--    </div>-->
 
   </div>
 </template>
