@@ -14,7 +14,7 @@ function prev() {
 }
 
 function next() {
-  if (screen.value < 7) screen.value++;
+  if (screen.value < 8) screen.value++;
 }
 
 const {
@@ -58,26 +58,27 @@ const {
     </div>
 
     <SingleMealCard v-if="screen === 0" :meal="data.data" @next="next"/>
-    <SingleMealUploadImage v-if="screen === 1" :meal="data.data" @reload="execute" imageKey="ingredients_image"/>
+    <MealExcellentChoice v-if="screen === 1" :meal="data.data" @prev="prev"/>
+    <SingleMealUploadImage v-if="screen === 2" :meal="data.data"  imageKey="ingredients_image"/>
     <SingleMealSuccess
-        v-if="screen === 2"
+        v-if="screen === 3"
         title="Great"
         description="Now you can start cooking.
 
 Can't wait to see the result!"
     />
-    <SingleMealCard v-if="screen === 3" :meal="data.data"/>
-    <SingleMealUploadImage v-if="screen === 4" :meal="data.data" @reload="execute" imageKey="meal_image"/>
+    <SingleMealCard v-if="screen === 4" :meal="data.data"/>
+    <SingleMealUploadImage v-if="screen === 5" :meal="data.data"  imageKey="meal_image"/>
     <SingleMealSuccess
-        v-if="screen === 5"
+        v-if="screen === 6"
         title="Looks delicious!"
         description="The reward for cooking is already in your Wallet.
 
 Check it and enjoy your meal!"
     />
-    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute"/>
+    <SingleMealSetSocialLink v-if="screen === 7" :meal="data.data" @reload="execute"/>
     <SingleMealSuccess
-        v-if="screen === 7"
+        v-if="screen === 8"
         title="Have a great day!"
         description="You can see history of your meals."
         :showHistory="true"

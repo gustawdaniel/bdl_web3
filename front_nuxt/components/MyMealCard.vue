@@ -51,7 +51,7 @@ import {computed, useRouter, useRuntimeConfig} from "#imports";
 import adm from '../assets/adm.svg'
 import dish from '../assets/dish.svg'
 const config = useRuntimeConfig();
-const ruter = useRouter();
+const router = useRouter();
 
 const props = defineProps<{ meal: Meal }>()
 
@@ -60,13 +60,7 @@ const meal = computed<Meal>(() => {
 })
 
 function onClick(action) {
-  if(action === 'ingredients-photo') {
-    ruter.push(`/meals/${meal.value.id}?action=${action}`);
-  } else if (action === 'meal-photo') {
-    ruter.push(`/meals/${meal.value.id}?action=${action}`);
-  } else if( action === 'social-media') {
-    ruter.push(`/meals/${meal.value.id}?action=${action}`);
-  }
+  router.push(`/meals/${meal.value.id}?action=${action}`);
 }
 
 
