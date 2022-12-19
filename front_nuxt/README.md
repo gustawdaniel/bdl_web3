@@ -23,6 +23,8 @@ Todo:
 - [ ] users dish and amd values
 - [ ] sending and receiving dish
 - [ ] ntfs list on user wallet view
+- [ ] during cooking "Let's" cook to "Process"
+- [ ] top bar menu
 
 Questions:
 - [ ] 

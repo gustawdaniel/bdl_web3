@@ -148,7 +148,6 @@ const navigation = ref([
   { name: 'Recipes', to: '/recipes', icon: ClipboardDocumentListIcon, current: true },
   { name: 'My meals', to: '/meals', icon: CalendarDaysIcon, current: false, number: 5, showNumber: true },
   { name: 'Market palce', to: '/marketplace', icon: BuildingStorefrontIcon, current: false },
-  { name: 'News', to: '/news', icon: NewspaperIcon, current: false },
   { name: 'Help', to: '/help', icon: ShieldCheckIcon, current: false },
   { name: 'Logout', to: '/logout', icon: ArrowRightOnRectangleIcon, current: false },
 ]);
