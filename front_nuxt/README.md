@@ -17,6 +17,12 @@ Todo:
 - [ ] meal instruction 
 - [ ] meal get token
 - [ ] support for multi cameras
+- [ ] users avatar
+- [ ] users name and surname
+- [ ] users wallet address
+- [ ] users dish and amd values
+- [ ] sending and receiving dish
+- [ ] ntfs list on user wallet view
 
 Questions:
 - [ ] 

@@ -33,7 +33,7 @@
                   <NuxtLink v-for="item in navigation" :key="item.name" :to="item.to"
                      :class="
                      [item.current ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                     'group flex items-center px-2 py-2 my-4 text-base font-medium rounded-md justify-between']">
+                     'group flex items-center px-2 py-2 text-base font-medium rounded-md justify-between']">
                     <div class="flex items-center">
                       <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-gray-400 group-hover:text-gray-500', 'mr-4 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
                       <span>{{ item.name }}</span>
@@ -77,7 +77,7 @@
                :key="item.name"
                :to="item.to"
                :class="[item.current ? 'bg-red-500 text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-               'group flex items-center px-2 py-2 my-4 text-sm font-medium rounded-md justify-between']">
+               'group flex items-center px-2 py-2  text-sm font-medium rounded-md justify-between']">
               <div class="flex items-center">
                 <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-gray-400 group-hover:text-gray-500', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
                 <span>{{ item.name }}</span>
@@ -182,6 +182,6 @@ definePageMeta({
 //   console.log(to);
 // })
 
-// const sidebarOpen = ref(false)
-const sidebarOpen = ref(true)
+const sidebarOpen = ref(false)
+// const sidebarOpen = ref(true)
 </script>

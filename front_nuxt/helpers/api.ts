@@ -14,6 +14,10 @@ export interface Image {
     } | null
 }
 
+export interface User {
+    email: string
+}
+
 export interface Nutrition {
     id: number,
     name: string
