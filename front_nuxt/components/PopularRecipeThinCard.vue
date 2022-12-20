@@ -1,6 +1,6 @@
 <template>
   <div class="h-32 w-24  flex flex-col justify-between bg-center bg-cover rounded-2xl"
-       :style="{ backgroundImage: 'url(' + recipeImageUrl(recipe, config) + ')' }">
+       :style="{ backgroundImage: 'url(' + recipeImageUrl(recipe.attributes, config) + ')' }">
 
     <div class="flex justify-end">
       <span class="inline-flex items-center rounded-full bg-white py-0.5 pl-2.5 pr-1 text-sm font-medium font-bold mt-2 mr-2">

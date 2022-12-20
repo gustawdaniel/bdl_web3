@@ -1,6 +1,6 @@
 <template>
   <div class="h-52 w-40 border rounded-2xl" >
-    <div :style="{ backgroundImage: 'url(' + recipeImageUrl(recipe, config) + ')' }" class="bg-center bg-cover h-32 rounded-t-2xl drop-shadow-none">
+    <div :style="{ backgroundImage: 'url(' + recipeImageUrl(recipe.attributes, config) + ')' }" class="bg-center bg-cover h-32 rounded-t-2xl drop-shadow-none">
         <div class="flex justify-end">
           <span class="inline-flex items-center rounded-full bg-white py-0.5 pl-2.5 pr-1 text-sm font-medium font-bold mt-2 mr-2">
             <span class="font-bold">+{{ recipe.attributes.dish_reward_for_cooking ?? 0 }}</span>

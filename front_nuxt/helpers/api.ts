@@ -61,6 +61,7 @@ export interface Meal {
 }
 
 export function recipeImageUrl(recipe: RecipeAttributes, config: any): string {
+    console.log("recipe", recipe);
     if(recipe.photo?.data && recipe.photo.data.attributes.formats?.medium) {
         return `${config.public.baseUrl}${recipe.photo.data.attributes.formats.medium.url}`;
     } else if(recipe.photo.data) {
