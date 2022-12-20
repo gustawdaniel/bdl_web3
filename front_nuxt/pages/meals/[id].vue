@@ -1,5 +1,15 @@
 <script lang="ts" setup>
-import {onMounted, ref, useCookie, useLazyFetch, useRoute, useRouter, useRuntimeConfig, watch} from "#imports";
+import {
+  definePageMeta,
+  onMounted,
+  ref,
+  useCookie,
+  useLazyFetch,
+  useRoute,
+  useRouter,
+  useRuntimeConfig,
+  watch
+} from "#imports";
 import {Meal} from "~/helpers/api";
 import {RouteLocationNormalizedLoaded} from "vue-router";
 
@@ -10,6 +20,9 @@ const token = useCookie('token')
 
 const screen = ref<number>(1);
 
+definePageMeta({
+  layout: 'panel'
+})
 
 function prev() {
   if (screen.value > 0) screen.value--;

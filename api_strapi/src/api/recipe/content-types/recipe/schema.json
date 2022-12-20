@@ -69,10 +69,6 @@
       "default": false,
       "required": false
     },
-    "is_top_earning": {
-      "type": "boolean",
-      "default": false
-    },
     "short_description": {
       "type": "text",
       "minLength": 80,

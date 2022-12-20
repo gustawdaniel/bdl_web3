@@ -15,12 +15,12 @@
 
           </h3>
 
-        <div v-for="(meal) in data.data"
+        <NuxtLink :to="`/meals/${meal.id}`" v-for="(meal) in data.data"
              :key="meal.id"
-             class="my-2"
+             class="hover:opacity-90"
             >
-          <MyMealCard :meal="meal"/>
-        </div>
+          <MyMealCard class="my-2" :meal="meal"/>
+        </NuxtLink>
 
         <div v-if="data && data.meta.pagination.pageSize > 1">
           <button @click="prev">&lt;</button>

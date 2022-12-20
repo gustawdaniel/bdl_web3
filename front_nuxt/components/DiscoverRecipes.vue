@@ -4,9 +4,9 @@
 
     <PopularRecipesList/>
 
-    <h3 class="text-lg font-bold my-2">Top earnings</h3>
+    <h3 class="text-lg font-bold my-2">All recipes</h3>
 
-    <TopEarningRecipesList/>
+    <AllRecipesList/>
 
   </div>
 </template>

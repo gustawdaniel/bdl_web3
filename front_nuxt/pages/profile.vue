@@ -91,13 +91,24 @@ function copyAddress() {
           <p class="text-xs">{{ user?.email }}</p>
         </div>
       </section>
-      <section class="text-xs mb-3">
+      <section class="text-xs mb-3" v-if="user?.wallet_address">
         <p class="mb-1"><span class="capitalize">{{user?.wallet_type}}</span> Wallet, ADM</p>
         <p class="flex items-center cursor-pointer" @click="copyAddress">
           <span :class="['mr-2', copiedNotification ? 'text-gray-200' : '']">{{user?.wallet_address.substring(0,8)}}...{{user?.wallet_address.substring(32)}}</span>
           <Square2StackIcon class="h-4 w-4"/>
           <span v-if="copiedNotification" class="ml-2">Copied!</span>
         </p>
+      </section>
+      <section v-else-if="!user?.wallet_address">
+        <NuxtLink to="/connect-wallet">
+          <button type="button"
+                  class="inline-flex items-center rounded-full border border-transparent
+                  bg-red-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm
+                  hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500
+                  focus:ring-offset-2 mb-5">
+            Connect Wallet
+          </button>
+        </NuxtLink>
       </section>
       <section class="mb-8">
         <p class="flex items-center">
