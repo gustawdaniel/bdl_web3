@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {definePageMeta, useCookie, useRouter} from "#imports";
+import {definePageMeta, ref, useCookie, useRouter} from "#imports";
 import {User} from "~/helpers/api";
 import {CookieRef} from "#app";
 
@@ -69,6 +69,16 @@ function formatBigNumber(number:number): string {
   return (number).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 }
+
+const copiedNotification = ref<boolean>(false)
+
+function copyAddress() {
+  navigator.clipboard.writeText(user.value?.wallet_address ?? '');
+  copiedNotification.value = true;
+  setTimeout(() => {
+    copiedNotification.value = false
+  }, 3000);
+}
 </script>
 
 <template>
@@ -77,15 +87,16 @@ function formatBigNumber(number:number): string {
       <section class="flex items-center mb-6">
         <img src="/hacker-avatar-512x512.png" alt="Avatar" class="h-12 w-12 mr-4">
         <div>
-          <h1 class="font-semibold text-base">Hello, Jane</h1>
+          <h1 class="font-semibold text-base">Hello, {{ user?.first_name || 'User' }}</h1>
           <p class="text-xs">{{ user?.email }}</p>
         </div>
       </section>
       <section class="text-xs mb-3">
-        <p class="mb-1">Wallet, ADM</p>
-        <p class="flex items-center">
-          <span class="mr-2">X0Y1djUFD...cvIFUE230423</span>
+        <p class="mb-1"><span class="capitalize">{{user?.wallet_type}}</span> Wallet, ADM</p>
+        <p class="flex items-center cursor-pointer" @click="copyAddress">
+          <span :class="['mr-2', copiedNotification ? 'text-gray-200' : '']">{{user?.wallet_address.substring(0,8)}}...{{user?.wallet_address.substring(32)}}</span>
           <Square2StackIcon class="h-4 w-4"/>
+          <span v-if="copiedNotification" class="ml-2">Copied!</span>
         </p>
       </section>
       <section class="mb-8">

@@ -6,16 +6,17 @@ const config = useRuntimeConfig();
 
 
 const props = defineProps<{
-  meal: Meal
+  recipe: RecipeAttributes
+  buttonTitle: string
 }>()
 
 const imageUrl = computed<string>(() => {
-  return props.meal.attributes.recipe ? recipeImageUrl(props.meal.attributes.recipe.data, config) : '';
+  return props.recipe ? recipeImageUrl(props.recipe, config) : '';
 })
 
 const recipe = computed<RecipeAttributes>(() => {
-  if (!props.meal.attributes.recipe) throw new Error(`No recipe for meal`);
-  return props.meal.attributes.recipe.data.attributes;
+  if (!props.recipe) throw new Error(`No recipe`);
+  return props.recipe;
 });
 
 import dish from '../assets/dish.svg';
@@ -69,7 +70,6 @@ function emitNext() {
     <aside class="h-72 w-full  bg-center bg-cover" :style="{
       backgroundImage: 'url(' + imageUrl + ')'
     }">
-      <p>ok</p>
     </aside>
     <main class="rounded-3xl p-5 -mt-6 bg-white">
       <header class="flex justify-between mb-3">
@@ -143,7 +143,7 @@ function emitNext() {
         w-full justify-center inline-flex items-center rounded-full border border-transparent bg-red-500 px-3 py-4
            text-base text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500
            focus:ring-offset-2 font-bold uppercase shadow-xl" @click="emitNext">
-            Let's cook it
+            {{ props.buttonTitle || 'Let\'s cook it' }}
         </button>
       </div>
     </main>

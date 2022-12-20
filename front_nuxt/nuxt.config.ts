@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+import tailwindTypography from '@tailwindcss/typography'
 
 
 export default defineNuxtConfig({
@@ -43,4 +44,9 @@ export default defineNuxtConfig({
             },
         },
     },
+    tailwindcss: {
+        config: {
+            plugins: [tailwindTypography]
+        }
+    }
 })

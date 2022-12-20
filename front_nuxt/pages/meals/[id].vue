@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import {ref, useCookie, useLazyFetch, useRoute, useRuntimeConfig, watch} from "#imports";
+import {onMounted, ref, useCookie, useLazyFetch, useRoute, useRouter, useRuntimeConfig, watch} from "#imports";
 import {Meal} from "~/helpers/api";
+import {RouteLocationNormalizedLoaded} from "vue-router";
 
 const route = useRoute()
 const config = useRuntimeConfig();
 const token = useCookie('token')
 
 
-const screen = ref<number>(6);
+const screen = ref<number>(1);
+
 
 function prev() {
   if (screen.value > 0) screen.value--;
@@ -16,6 +18,35 @@ function prev() {
 function next() {
   if (screen.value < 7) screen.value++;
 }
+
+function setScreenUsingQuery(route: RouteLocationNormalizedLoaded):void {
+  if('action' in route.query) {
+    switch (route.query.action) {
+      case 'ingredients-photo': {
+        screen.value = 2;
+        break;
+      }
+      case 'meal-photo': {
+        screen.value = 5;
+        break;
+      }
+      case 'social-media': {
+        screen.value = 7;
+        break;
+      }
+    }
+    console.log("r.query.action", route.query.action);
+  }
+}
+
+onMounted(() => {
+  setScreenUsingQuery(route);
+})
+
+watch(route, (r) => {
+  console.log(r.query);
+  setScreenUsingQuery(r);
+})
 
 const {
   data,
@@ -29,9 +60,14 @@ const {
   query: {
     populate: 'recipe,ingredients_image,meal_image,recipe.photo,recipe.nutrition,recipe.ingredients'
   }
-})
+});
 
+const router = useRouter();
 
+function finish() {
+  console.log("finish");
+  router.push('/meals')
+}
 </script>
 
 <template>
@@ -57,7 +93,7 @@ const {
       <button @click="next">Next</button>
     </div>
 
-    <SingleMealCard v-if="screen === 0" :meal="data.data" @next="next"/>
+    <SingleRecipeCard v-if="screen === 0" :recipe="data.data.attributes.recipe.data.attributes" @next="next"/>
     <MealExcellentChoice v-if="screen === 1" :meal="data.data" @prev="prev"/>
     <SingleMealUploadImage v-if="screen === 2" :meal="data.data"
                            @reload="execute"
@@ -65,7 +101,7 @@ const {
                            @next="next"
                            imageKey="ingredients_image"/>
 
-    <SingleMealCard v-if="screen === 3" :meal="data.data"/>
+    <SingleRecipeCard v-if="screen === 3" :recipe="data.data.attributes.recipe.data.attributes" button-title="progresss" @next="next"/>
     <MealExcellentChoice v-if="screen === 4" :meal="data.data" @prev="prev"/>
 
     <SingleMealUploadImage v-if="screen === 5" :meal="data.data"
@@ -74,12 +110,13 @@ const {
                            @next="next"
                            imageKey="meal_image"/>
 
-    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute"/>
+    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute" @next="next"/>
     <SingleMealSuccess
         v-if="screen === 7"
         title="Have a great day!"
         description="You can see history of your meals."
         :showHistory="true"
+        @next="finish"
     />
 
 

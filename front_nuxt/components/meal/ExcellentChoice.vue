@@ -68,10 +68,13 @@ const sections = [
   {image: photoSocial, text: 'Share the result on social media and get ADM tokens', action: 'social-media', active: isSocialActive}
 ]
 
-const emit = defineEmits(['prev']);
+const emit = defineEmits(['prev', 'next']);
 
 function emitPrev() {
   emit('prev');
+}
+function emitNext() {
+  emit('next');
 }
 </script>
 

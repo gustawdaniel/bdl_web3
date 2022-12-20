@@ -68,6 +68,31 @@
       "relation": "oneToMany",
       "target": "api::meal.meal",
       "mappedBy": "user"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "wallet_address": {
+      "type": "string"
+    },
+    "wallet_type": {
+      "type": "enumeration",
+      "enum": [
+        "metamask",
+        "coinbase",
+        "custom"
+      ]
     }
   }
 }

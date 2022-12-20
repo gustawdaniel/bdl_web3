@@ -34,7 +34,7 @@ import dish from '../assets/dish.svg';
 import pepper from '../assets/img/pepper.svg';
 
 watch(data, () => {
-  emit('reload')
+  emit('next')
 });
 
 const rules = [
@@ -96,7 +96,7 @@ const advices = [
 
           w-52 justify-center inline-flex items-center rounded-full border border-transparent bg-red-500 px-3 py-3
              text-sm text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500
-             focus:ring-offset-2 font-bold uppercase shadow-xl mb-8" @click="emit('next')">
+             focus:ring-offset-2 font-bold uppercase shadow-xl mb-8" >
         Send the link
       </button>
     </form>

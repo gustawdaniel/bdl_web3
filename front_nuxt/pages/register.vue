@@ -1,10 +1,19 @@
 <script lang="ts" setup>
-import {useRouter} from "#imports";
+import {useCookie, useRouter} from "#imports";
+import {User} from "~/helpers/api";
 
 const router = useRouter();
+const token = useCookie('token');
+const user = useCookie<User | ''>('user');
 
 function reload() {
-  router.push('/profile');
+  token.value = useCookie('token').value
+  user.value = useCookie<User | ''>('user').value
+  if(user.value.wallet_address) {
+    router.push('/profile');
+  } else {
+    router.push('/connect-wallet');
+  }
 }
 
 </script>

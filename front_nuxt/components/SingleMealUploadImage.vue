@@ -216,8 +216,9 @@ const cameraDevices = ref([]);
       </div>
 
       <div v-if="cameraDevices.length" class="relative">
-        <div class="-scale-x-100">
-          <camera :resolution="{ width: 375, height: 812 }" ref="cameraRef" autoplay/>
+<!--        <div class="-scale-x-100 ">-->
+        <div class="">
+          <camera :resolution="{ width: 375, height: 812 }" ref="cameraRef" autoplay />
         </div>
 
         <label class="absolute bottom-4 left-4  text-gray-100  hover:text-gray-200 w-16 h-16 rounded-full

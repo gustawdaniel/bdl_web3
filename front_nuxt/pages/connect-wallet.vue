@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import {ref} from "#imports";
+import {nextTick, ref, useCookie, useLazyFetch, useRouter, useRuntimeConfig, watch} from "#imports";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import Web3 from 'web3'
 
@@ -19,6 +19,7 @@ const error = ref<null | {
 const success = ref<string>('');
 
 const showErrorDetails = ref<boolean>(false);
+const config = useRuntimeConfig();
 
 function createAdmealWallet() {
   error.value = {
@@ -28,10 +29,59 @@ function createAdmealWallet() {
   }
 }
 
+const updateWalletBody = ref<Pick<'wallet_address' | 'wallet_type', User>>({
+  wallet_address: '',
+  wallet_type: ''
+});
+
+const user: CookieRef<User> = useCookie('user');
+const token = useCookie('token');
+
+const sec = ref<number>(3)
+
+const requestUrl = ref<string>(`${config.public.baseUrl}/api/users/${user.value?.id}`)
+
+const {data, error: requestError, execute, pending} = await useLazyFetch<{ jwt: string }>(`${requestUrl.value}`, {
+  body: updateWalletBody,
+  method: 'put',
+  immediate: false,
+  watch: [],
+  headers: {
+    Authorization: `Bearer ${token.value}`
+  },
+})
+
+const router = useRouter();
+
+watch(data, async (value) => {
+  console.log("value", value);
+  user.value = value;
+
+  const int = setInterval(() => {
+    if(sec.value > 0) {
+      sec.value--
+    } else {
+      clearInterval(int);
+      // sec.value = 3;
+      router.push('/recipes');
+    }
+
+  }, 1000)
+
+  await nextTick();
+
+})
+
 async function connectMetaMask() {
   console.log("connectMetaMask");
   try {
     await ethereum.enable();
+
+    updateWalletBody.value = {
+      wallet_address: ethereum.selectedAddress,
+      wallet_type: 'metamask'
+    }
+
     success.value = `Metamask connected. Your wallet address: ${ethereum.selectedAddress}`;
   } catch (err) {
     console.log("err", err);
@@ -42,8 +92,6 @@ async function connectMetaMask() {
     }
   }
 }
-
-(window as any).global = window;
 
 function connectCoinbase() {
   console.log("connectCoinbase");
@@ -80,6 +128,8 @@ const buttons = [
   },
 ]
 import { XCircleIcon, ChevronDoubleDownIcon,ChevronDoubleUpIcon, XMarkIcon } from '@heroicons/vue/20/solid'
+import {User} from "~/helpers/api";
+import {CookieRef} from "#app";
 
 function closeErrorAlert() {
   showErrorDetails.value = false;
@@ -114,6 +164,13 @@ function closeErrorAlert() {
           </div>
         </div>
 
+      </div>
+      <div v-if="data">
+        <div class="ml-3">
+          <div class="mt-2 text-sm text-green-700">
+            You will be redirected for {{sec}} seconds...
+          </div>
+        </div>
       </div>
     </div>
 

@@ -16,19 +16,29 @@ const isLogin = computed<boolean>(() => {
 })
 
 interface LoginRequestBody {
-  identifier: string, password: string
+  identifier: string,
+  password: string
 }
-
-const formBody = ref<LoginRequestBody>({
-  identifier: 'user@ok.com',
-  password: 'pass'
-});
 
 interface RegisterRequestBody {
   username: string,
   email: string,
-  password: string
+  password: string,
+  first_name: string,
+  last_name: string
 }
+
+interface LoginOrRegisterForm extends LoginRequestBody {
+  first_name: string,
+  last_name: string,
+}
+
+const formBody = ref<LoginOrRegisterForm>({
+  first_name: 'Daniel',
+  last_name: 'Gustaw',
+  password: 'pass',
+  identifier: 'user@ok.com'
+});
 
 const loginRequestBody = ref<LoginRequestBody>({
   identifier: '',
@@ -38,7 +48,9 @@ const loginRequestBody = ref<LoginRequestBody>({
 const registerRequestBody = ref<RegisterRequestBody>({
   username: '',
   email: '',
-  password: ''
+  password: '',
+  first_name: '',
+  last_name: ''
 });
 
 const requestUrl = computed<string>(
@@ -80,11 +92,13 @@ function registerToLogin(data: RegisterRequestBody): LoginRequestBody {
   }
 }
 
-function loginToRegister(data: LoginRequestBody): RegisterRequestBody {
+function formToRegister(data: LoginOrRegisterForm): RegisterRequestBody {
   return {
     email: data.identifier,
     username: data.identifier,
-    password: data.password
+    password: data.password,
+    first_name: data.first_name,
+    last_name: data.last_name
   }
 }
 
@@ -92,7 +106,7 @@ function register() {
   if (JSON.stringify(registerToLogin(registerRequestBody.value)) === JSON.stringify(formBody.value)) {
     execute()
   } else {
-    registerRequestBody.value = loginToRegister(formBody.value);
+    registerRequestBody.value = formToRegister(formBody.value);
   }
 }
 
@@ -123,18 +137,45 @@ function togglePasswordShown() {
   <img src="/logo.svg" alt="Ad Meal" class="mb-8">
 
   <h1 class="text-xl font-bold mb-2">
-    {{ isLogin ? 'Sign in to Admeal' : 'Create account in Admeal' }}
+    {{ isLogin ? 'Sign in to Admeal' : 'Get started' }}
   </h1>
 
-  <p class="text-slate-600 mb-6">Enter your details below</p>
-
+  <p class="text-slate-600 mb-6">{{ isLogin ? 'Enter your details below' : 'There are two brief steps. First let\'s create an account. Enter your details below.' }}</p>
 
   <form @submit.prevent="submit">
+    <div v-if="isRegister">
+      <div class="sm:col-span-4 pt-1 relative mb-3">
+        <label for="first_name"
+               class="block text-sm font-medium text-gray-700 absolute top-0 left-4 bg-white px-2 text-gray-400">
+          First name
+        </label>
+        <div class="mt-1 border rounded-lg">
+          <input required id="first_name" name="first_name" type="text" autocomplete="first_name"
+                 v-model.lazy="formBody.first_name"
+                 class="block w-full rounded-md border-gray-300 shadow-sm
+        focus:outline-none focus:ring-1 focus:ring-red-500 sm:text-sm p-4"/>
+        </div>
+      </div>
+
+      <div class="sm:col-span-4 pt-1 relative mb-3">
+        <label for="last_name"
+               class="block text-sm font-medium text-gray-700 absolute top-0 left-4 bg-white px-2 text-gray-400">
+          Last name
+        </label>
+        <div class="mt-1 border rounded-lg">
+          <input required id="last_name" name="last_name" type="text" autocomplete="last_name"
+                 v-model.lazy="formBody.last_name"
+                 class="block w-full rounded-md border-gray-300 shadow-sm
+        focus:outline-none focus:ring-1 focus:ring-red-500 sm:text-sm p-4"/>
+        </div>
+      </div>
+    </div>
 
     <div class="sm:col-span-4 pt-1 relative mb-3">
       <label for="email"
-             class="block text-sm font-medium text-gray-700 absolute top-0 left-4 bg-white px-2 text-gray-400">Email
-        address</label>
+             class="block text-sm font-medium text-gray-700 absolute top-0 left-4 bg-white px-2 text-gray-400">
+        Email address
+      </label>
       <div class="mt-1 border rounded-lg">
         <input id="email" name="email" type="email" autocomplete="email"
                v-model.lazy="formBody.identifier"
@@ -142,7 +183,6 @@ function togglePasswordShown() {
         focus:outline-none focus:ring-1 focus:ring-red-500 sm:text-sm p-4"/>
       </div>
     </div>
-
 
     <div class="sm:col-span-4 pt-1 mb-2 relative">
       <label for="password"
@@ -157,7 +197,7 @@ function togglePasswordShown() {
       </div>
     </div>
 
-    <div class="flex justify-between p-3">
+    <div class="flex justify-between p-3" v-if="isLogin">
       <div class="flex items-start">
         <div class="flex h-5 items-center">
           <input id="comments" name="comments" type="checkbox"
@@ -168,20 +208,20 @@ function togglePasswordShown() {
         </div>
       </div>
 
-      <NuxtLink
-          v-if="isLogin"
-      ><span class="text-red-500 text-sm font-semibold">Forgot password?</span></NuxtLink>
+      <NuxtLink><span class="text-red-500 text-sm font-semibold">Forgot password?</span></NuxtLink>
     </div>
 
-
-    <button type="submit" class="text-white bg-red-500 w-full rounded-full p-2.5 my-4">
+    <button type="submit" :class="[isLogin ? 'mb-4' : 'mb-8', 'text-white bg-red-500 w-full rounded-full p-2.5 mt-4 shadow-lg']">
       {{ isLogin ? 'Login' : 'Register' }}
     </button>
 
     <p v-if="isLogin" class="text-sm text-center">Don’t have an account?
       <NuxtLink to="/register"><span class="font-semibold text-red-500">Get started</span></NuxtLink>
     </p>
-    <p v-if="isRegister" class="text-sm text-center">Have already an account?
+    <p v-if="isRegister" class="text-sm text-center mb-8 text-gray-500">By signing up, I agree to Minimal
+      <NuxtLink to="/tos" class="underline text-black">Terms of Service</NuxtLink> and <NuxtLink to="/privacy" class="underline text-black">Privacy Policy.</NuxtLink>
+    </p>
+    <p v-if="isRegister" class="text-sm text-center">Already have an account?
       <NuxtLink to="/login"><span class="font-semibold text-red-500">Login</span></NuxtLink>
     </p>
   </form>

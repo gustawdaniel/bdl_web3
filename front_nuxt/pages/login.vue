@@ -1,15 +1,23 @@
 <script lang="ts" setup>
-import {ref, useCookie, useLazyFetch, useRuntimeConfig, watch} from "#imports";
+import { useCookie, useRouter, useRuntimeConfig} from "#imports";
+import {User} from "~/helpers/api";
 
 const token = useCookie('token');
-const user = useCookie('user');
+const user = useCookie<User | ''>('user');
 const config = useRuntimeConfig();
+const router = useRouter();
 
 
 function reload() {
   console.log("reload");
   token.value = useCookie('token').value
-  user.value = useCookie('user').value
+  user.value = useCookie<User | ''>('user').value
+  if(user.value.wallet_address) {
+    router.push('/recipes')
+  } else {
+    router.push('/connect-wallet');
+  }
+
 }
 
 function logout() {
@@ -20,12 +28,7 @@ function logout() {
 
 <template>
   <div class="m-4">
-<!--    <pre>{{ token }}</pre>-->
-
-
     <div v-if="token">
-
-<!--      <pre>{{ user }}</pre>-->
 
       <nuxt-link to="/profile">
         <button>Profile</button>

@@ -15,7 +15,12 @@ export interface Image {
 }
 
 export interface User {
+    id: number,
     email: string
+    first_name: string,
+    last_name: string,
+    wallet_address: string
+    wallet_type: 'metamask' | 'coinbase' | 'custom'
 }
 
 export interface Nutrition {
@@ -55,11 +60,11 @@ export interface Meal {
     }
 }
 
-export function recipeImageUrl(recipe: Recipe, config: any): string {
-    if(recipe.attributes.photo?.data && recipe.attributes.photo.data.attributes.formats?.medium) {
-        return `${config.public.baseUrl}${recipe.attributes.photo.data.attributes.formats.medium.url}`;
-    } else if(recipe.attributes.photo.data) {
-        return `${config.public.baseUrl}${recipe.attributes.photo.data.attributes.url}`;
+export function recipeImageUrl(recipe: RecipeAttributes, config: any): string {
+    if(recipe.photo?.data && recipe.photo.data.attributes.formats?.medium) {
+        return `${config.public.baseUrl}${recipe.photo.data.attributes.formats.medium.url}`;
+    } else if(recipe.photo.data) {
+        return `${config.public.baseUrl}${recipe.photo.data.attributes.url}`;
     } else {
         return '';
     }
