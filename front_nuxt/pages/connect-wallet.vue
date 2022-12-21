@@ -1,5 +1,14 @@
 <script lang="ts" setup>
 
+if('process' in window) {
+  window.process = {
+    nextTick() {},
+    env: {
+      NODE_DEBUG: false
+    }
+  }
+}
+
 import {nextTick, ref, useCookie, useLazyFetch, useRouter, useRuntimeConfig, watch} from "#imports";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import Web3 from 'web3'

@@ -5,7 +5,7 @@
   <div v-else-if="error">
     <pre>{{error}}</pre>
   </div>
-  <div v-else class="flex">
+  <div v-else class="flex flex-wrap">
     <NuxtLink :to="`/recipes/${recipe.id}`" :key="recipe.id" v-for="recipe in data.data" class="m-1 hover:opacity-90">
       <AllRecipeThinWide :recipe="recipe" />
     </NuxtLink>

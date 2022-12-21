@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useCookie, useRouter, useRuntimeConfig} from "#imports";
+import {onMounted, useCookie, useRouter, useRuntimeConfig} from "#imports";
 import {User} from "~/helpers/api";
 
 const token = useCookie('token');
@@ -17,8 +17,13 @@ function reload() {
   } else {
     router.push('/connect-wallet');
   }
-
 }
+
+onMounted(() => {
+  if(user.value) {
+    reload();
+  }
+});
 
 function logout() {
   token.value = '';

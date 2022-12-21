@@ -1,6 +1,7 @@
 import { resolve } from 'path'
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
+import NodeModulesPolyfills from '@esbuild-plugins/node-modules-polyfill';
 import tailwindTypography from '@tailwindcss/typography'
 
 
@@ -28,6 +29,9 @@ export default defineNuxtConfig({
         },
     },
     vite: {
+        define: {
+            "process.env": {},
+        },
         // in dev mode, vite use `esbuild`,so we should add `node polyfill`
         optimizeDeps: {
             esbuildOptions: {
@@ -38,8 +42,10 @@ export default defineNuxtConfig({
                     NodeGlobalsPolyfillPlugin({
                         process: true,
                         buffer: true,
+                        define: { 'process.env.NODE_DEBUG': 'false' },
                     }),
-                    NodeModulesPolyfillPlugin()
+                    NodeModulesPolyfillPlugin(),
+                    NodeModulesPolyfills()
                 ],
             },
         },
