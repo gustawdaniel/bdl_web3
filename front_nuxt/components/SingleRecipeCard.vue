@@ -84,7 +84,7 @@ function emitNext() {
         </span>
       </header>
 
-      <div class="mb-4">
+      <div class="mb-4" v-if="recipe.short_description">
         <p class="text-xs text-slate-600">
           {{ recipe.short_description }}
         </p>

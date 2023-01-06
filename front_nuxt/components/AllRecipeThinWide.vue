@@ -28,11 +28,11 @@
       <span class="flex">
         <span class="flex text-xs text-slate-500 bg-slate-200 items-center rounded-md m-2">
           <ClockIcon class="w-3 h-3 m-1"/>
-          <span class="font-bold mr-2">{{recipe.attributes.cooking_time_value}} {{unitFormat(recipe.attributes.cooking_time_unit)}}</span>
+          <span class="font-bold mr-2 h-5 ">{{recipe.attributes.cooking_time_value}} {{unitFormat(recipe.attributes.cooking_time_unit)}}</span>
         </span>
       </span>
 
-      <p class="text-sm font-semibold mx-2 mt-1/2">{{recipe.attributes.name}}</p>
+      <p class="text-sm font-semibold mx-2 mt-1/2 truncate">{{recipe.attributes.name}}</p>
 
       <p class="text-xs text-slate-600 mx-2">Cooked {{recipe.attributes.cooking_counter}} times</p>
     </div>
