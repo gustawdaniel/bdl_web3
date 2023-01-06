@@ -10,10 +10,18 @@
       "type": "string",
       "required": true
     },
-    "parameters": {
-      "type": "component",
-      "repeatable": true,
-      "component": "parameter.parameter"
+    "value": {
+      "type": "decimal"
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": [
+        "tbsp",
+        "oz",
+        "ct",
+        "fl oz",
+        "lb"
+      ]
     }
   }
 }

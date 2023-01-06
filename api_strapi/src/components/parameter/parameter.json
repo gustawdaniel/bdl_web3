@@ -23,7 +23,9 @@
       "type": "enumeration",
       "enum": [
         "oz",
-        "ct"
+        "ct",
+        "fl oz",
+        "lb"
       ]
     }
   }

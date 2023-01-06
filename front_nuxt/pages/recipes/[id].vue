@@ -1,10 +1,14 @@
 <script lang="ts" setup>
 
-import {ref, useCookie, useLazyFetch, useRoute, useRouter, useRuntimeConfig, watch} from "#imports";
+import {definePageMeta, ref, useCookie, useLazyFetch, useRoute, useRouter, useRuntimeConfig, watch} from "#imports";
 const config = useRuntimeConfig();
 const route = useRoute()
 const router = useRouter()
 const token = useCookie('token')
+
+definePageMeta({
+  layout: 'panel'
+})
 
 const {data, error, execute, pending} = await useLazyFetch<{ jwt: string }>(`${config.public.baseUrl}/api/recipes/${route.params.id}?populate=*`, {
 })
@@ -37,29 +41,15 @@ async function cook() {
 </script>
 
 <template>
-  <div>
-    Recipe: {{ route.params.id }}
-  </div>
   <div v-if="pending">
     Loading...
   </div>
   <div v-else>
-    <p>{{data.data.attributes.name}}</p>
-    <img :src="`${config.public.baseUrl}${data.data.attributes.photo.data.attributes.formats.thumbnail.url}`" alt="">
-    <p>nutritions</p>
-    <table>
-      <tr v-for="nutrition in data.data.attributes.nutrition">
-        <td>{{nutrition.name}}</td>
-        <td>{{nutrition.value}}</td>
-        <td>{{nutrition.unit}}</td>
-      </tr>
-    </table>
-    <p>ingredients</p>
-    <ul v-for="ingredient in data.data.attributes.ingredients">
-      <li>{{ingredient.name}}</li>
-    </ul>
 
-    <button @click="cook">Lets cook it</button>
+
+    <SingleRecipeCard :recipe="data.data.attributes" @next="cook"/>
+
+<!--    <button @click="cook">Lets cook it</button>-->
   </div>
 </template>
 

@@ -10,6 +10,42 @@ To login
 echo '{"identifier": "user@ok.com", "password": "pass"}' | http POST http://localhost:1337/api/auth/local
 ```
 
+OTP send email
+
+```
+POST /api/auth/otp
+
+{
+	"email": "gustaw.daniel@gmail.com"
+}
+```
+
+OTP check code
+
+```
+GET /api/auth/otp?confirmation=7503
+```
+
+response is
+
+```json
+{
+	"jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNjY5NzQ0Mjg0LCJleHAiOjE2NzIzMzYyODR9.D2WyZ_pIqUyDxefqDURURtW4ZuKJC5VtUZqDskisNQA",
+	"user": {
+		"id": 4,
+		"username": "gustaw.daniel@gmail.com",
+		"email": "gustaw.daniel@gmail.com",
+		"provider": "local",
+		"confirmed": true,
+		"blocked": false,
+		"createdAt": "2022-11-29T16:01:42.671Z",
+		"updatedAt": "2022-11-29T17:38:44.648Z"
+	}
+}
+```
+
+---
+
 To list recipes
 
 ```bash

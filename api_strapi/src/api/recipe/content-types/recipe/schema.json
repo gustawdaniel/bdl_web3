@@ -37,7 +37,7 @@
     "servings": {
       "type": "integer"
     },
-    "dish_revard_for_cooking": {
+    "dish_reward_for_cooking": {
       "type": "decimal"
     },
     "cooking_counter": {
@@ -60,6 +60,20 @@
       "relation": "oneToMany",
       "target": "api::meal.meal",
       "mappedBy": "recipe"
+    },
+    "instruction": {
+      "type": "richtext"
+    },
+    "is_popular": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "short_description": {
+      "type": "text",
+      "minLength": 80,
+      "maxLength": 160,
+      "required": true
     }
   }
 }

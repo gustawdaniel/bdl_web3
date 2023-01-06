@@ -1,7 +1,7 @@
 {
   "name": "api-strapi",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
@@ -14,6 +14,7 @@
     "@strapi/plugin-users-permissions": "4.5.2",
     "@strapi/strapi": "4.5.2",
     "better-sqlite3": "^8.0.0",
+    "mailgun-js": "^0.22.0",
     "mysql": "2.18.1"
   },
   "author": {
@@ -26,5 +27,8 @@
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mailgun-js": "^0.22.12"
+  }
 }

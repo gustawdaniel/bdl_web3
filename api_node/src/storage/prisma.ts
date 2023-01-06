@@ -15,8 +15,6 @@ function dbUrl() {
     }
 }
 
-
-
 const prisma = new PrismaClient({
     datasources: {
         db: {
