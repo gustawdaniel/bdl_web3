@@ -36,7 +36,7 @@ export interface RecipeAttributes {
     dish_reward_for_cooking: number
     cooking_counter: number,
     cooking_time_unit: string
-    short_description: string
+    short_description?: string
     photo: Image
     nutrition: Nutrition[]
     ingredients: Nutrition[]
