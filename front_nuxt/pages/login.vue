@@ -12,10 +12,14 @@ function reload() {
   console.log("reload");
   token.value = useCookie('token').value
   user.value = useCookie<User | ''>('user').value
-  if(user.value.wallet_address) {
-    router.push('/recipes')
+  if(user.value) {
+    if (user.value.wallet_address) {
+      router.push('/recipes')
+    } else {
+      router.push('/connect-wallet');
+    }
   } else {
-    router.push('/connect-wallet');
+    
   }
 }
 

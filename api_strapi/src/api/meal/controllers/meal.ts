@@ -33,9 +33,7 @@ export default factories.createCoreController('api::meal.meal',  ({ strapi }) =>
       const meal = await strapi.service('api::meal.meal').findOne(ctx.params.id, {
         populate: 'recipe'
       });
-      console.log(meal);
       const recipe = await strapi.service('api::recipe.recipe').findOne(meal.recipe.id, {}) as {dish_revard_for_cooking: number}
-      console.log("recipe", recipe);
       ctx.request.body.data.dish_token = recipe.dish_revard_for_cooking;
     }
 

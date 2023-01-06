@@ -26,9 +26,6 @@ Todo:
 - [ ] during cooking "Let's" cook to "Process"
 - [ ] top bar menu
 
-Questions:
-- [ ] 
-
 ---
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

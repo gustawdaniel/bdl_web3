@@ -9,7 +9,7 @@ if('process' in window) {
   }
 }
 
-import {nextTick, ref, useCookie, useLazyFetch, useRouter, useRuntimeConfig, watch} from "#imports";
+import {nextTick, onMounted, ref, useCookie, useLazyFetch, useRouter, useRuntimeConfig, watch} from "#imports";
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import Web3 from 'web3'
 
@@ -47,6 +47,12 @@ const user: CookieRef<User> = useCookie('user');
 const token = useCookie('token');
 
 const sec = ref<number>(3)
+
+onMounted(() => {
+  if(!user.value || !token.value) {
+    router.push('/logout');
+  }
+})
 
 const requestUrl = ref<string>(`${config.public.baseUrl}/api/users/${user.value?.id}`)
 
@@ -117,8 +123,20 @@ function connectCoinbase() {
   console.log("currentProvider", web3.currentProvider);
 
   web3.currentProvider.enable();
+  window.web3 = web3;
 
-  console.log("defaultAccount", web3.defaultAccount);
+  const address = window.web3.currentProvider.selectedAddress;
+
+  console.log("selectedAddress", address);
+
+  updateWalletBody.value = {
+    wallet_address: address,
+    wallet_type: 'coinbase'
+  }
+
+  execute();
+
+  success.value = `Metamask connected. Your wallet address: ${ethereum.selectedAddress}`;
 }
 
 const buttons = [
@@ -152,6 +170,9 @@ function closeErrorAlert() {
       <h1 class="font-bold text-2xl mb-4">Half way done!</h1>
       <p class="text-base text-gray-500">Now let’s connect your crypto wallet or create a new one.</p>
     </div>
+
+    <pre>user {{user}}</pre>
+    <pre>token {{token}}</pre>
 
 <!--    success -->
     <div class="rounded-md bg-green-50 p-4 mb-10" v-if="success">

@@ -41,7 +41,6 @@ export default {
       };
 
       user = await getService('user').add(newUser);
-      console.log(user)
     }
 
     const confirmationToken = crypto.randomBytes(2).toString('hex').toUpperCase()
@@ -61,8 +60,6 @@ export default {
         else resolve(body)
       });
     })
-
-    console.log(body);
 
     return {
 //      confirmationToken,
