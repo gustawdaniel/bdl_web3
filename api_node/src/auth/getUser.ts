@@ -11,9 +11,8 @@ interface JwtPayloadCustomer {
     sub: string
 }
 
-// expired_at is depreciated
-function getExpDate(jwtPayload: { exp: number; expired_at?: number }): Date {
-    return dayjs.unix(jwtPayload.expired_at || jwtPayload.exp).toDate()
+function getExpDate(jwtPayload: { exp: number }): Date {
+    return dayjs.unix(jwtPayload.exp).toDate()
 }
 
 const jwtKey = process.env.JWT_SECRET_KEY ?? 'test';

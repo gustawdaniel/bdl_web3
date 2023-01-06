@@ -11,7 +11,6 @@ const signature = '0x5d8f425c91437148b65f47e9444d91e868d3566d868649fec58c76010c8
 
 describe('i can authenticate signature', () => {
     it('auth', () => {
-
         expect(getAddress(nonce, signature)).toEqual(address)
         expect(verifyUser({nonce, address}, signature)).toBeTruthy();
     })

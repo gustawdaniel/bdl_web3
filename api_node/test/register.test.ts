@@ -1,8 +1,6 @@
 import { getFastifyServer } from '../src/fastify'
 import {seed} from "../src/storage/seed";
-import {prisma} from "../src/storage/prisma";
 import {Response } from "light-my-request";
-
 
 describe('user can register account', () => {
   it('first and second registration', async () => {
@@ -22,12 +20,11 @@ describe('user can register account', () => {
     const result1 =await registerUser("abc")
 
     expect(result1.statusCode).toEqual(201);
-    expect(result1.body).toEqual("");
-    expect(result1.headers['content-type']).toEqual("text/plain; charset=utf-8");
+    expect(result1.headers['content-type']).toContain("application/json");
 
     const result2 =await registerUser("abc")
 
     expect(result2.statusCode).toEqual(200);
-    expect(result2.body).toEqual("");
+    expect(result2.body).toEqual(result1.body);
   })
 })

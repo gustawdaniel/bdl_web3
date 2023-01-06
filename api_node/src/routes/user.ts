@@ -19,19 +19,24 @@ export class User {
             }
         })
 
-        if (found) return res.code(200).send("");
+        if (found) return res.code(200).send({
+            nonce: found.nonce
+        });
 
+        const nonce = uid(20);
         await prisma.users.create({
             data: {
                 address: req.body.address,
-                nonce: uid(20),
+                nonce,
             }
         })
 
-        return res.code(201).send("");
+        return res.code(201).send({
+            nonce
+        });
     }
 
-    static async getByNonce(req: FastifyRequest<{ Params: { address: string } }>, res: FastifyReply) {
+    static async getNonce(req: FastifyRequest<{ Params: { address: string } }>, res: FastifyReply) {
         const address = req.params.address;
 
         const user = await prisma.users.findUnique({
@@ -54,8 +59,8 @@ export class User {
 
         if (!address || !sig || !nonce) return res.expectationFailed('invalid body');
 
-            const verified = verifyUser({address, nonce}, sig);
-            if (!verified) return res.unauthorized();
+        const verified = verifyUser({address, nonce}, sig);
+        if (!verified) return res.unauthorized();
 
 
         return {

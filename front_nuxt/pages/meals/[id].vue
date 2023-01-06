@@ -1,12 +1,28 @@
 <script lang="ts" setup>
-import {ref, useCookie, useLazyFetch, useRoute, useRuntimeConfig, watch} from "#imports";
+import {
+  definePageMeta,
+  onMounted,
+  ref,
+  useCookie,
+  useLazyFetch,
+  useRoute,
+  useRouter,
+  useRuntimeConfig,
+  watch
+} from "#imports";
+import {Meal} from "~/helpers/api";
+import {RouteLocationNormalizedLoaded} from "vue-router";
 
 const route = useRoute()
 const config = useRuntimeConfig();
 const token = useCookie('token')
 
 
-const screen = ref<number>(0);
+const screen = ref<number>(1);
+
+definePageMeta({
+  layout: 'panel'
+})
 
 function prev() {
   if (screen.value > 0) screen.value--;
@@ -16,18 +32,55 @@ function next() {
   if (screen.value < 7) screen.value++;
 }
 
+function setScreenUsingQuery(route: RouteLocationNormalizedLoaded):void {
+  if('action' in route.query) {
+    switch (route.query.action) {
+      case 'ingredients-photo': {
+        screen.value = 2;
+        break;
+      }
+      case 'meal-photo': {
+        screen.value = 5;
+        break;
+      }
+      case 'social-media': {
+        screen.value = 7;
+        break;
+      }
+    }
+    console.log("r.query.action", route.query.action);
+  }
+}
+
+onMounted(() => {
+  setScreenUsingQuery(route);
+})
+
+watch(route, (r) => {
+  console.log(r.query);
+  setScreenUsingQuery(r);
+})
+
 const {
   data,
   pending,
   execute
-} = await useLazyFetch(`${config.public.baseUrl}/api/meals/${route.params.id}?populate=recipe,ingredients_image,meal_image`, {
+} = await useLazyFetch<{data: Meal}>(`${config.public.baseUrl}/api/meals/${route.params.id}`, {
   immediate: true,
   headers: {
     Authorization: `Bearer ${token.value}`
   },
-})
+  query: {
+    populate: 'recipe,ingredients_image,meal_image,recipe.photo,recipe.nutrition,recipe.ingredients'
+  }
+});
 
+const router = useRouter();
 
+function finish() {
+  console.log("finish");
+  router.push('/meals')
+}
 </script>
 
 <template>
@@ -53,30 +106,30 @@ const {
       <button @click="next">Next</button>
     </div>
 
-    <SingleMealCard v-if="screen === 0" :data="data"/>
-    <SingleMealUploadImage v-if="screen === 1" :data="data" @reload="execute" imageKey="ingredients_image"/>
-    <SingleMealSuccess
-        v-if="screen === 2"
-        title="Great"
-        description="Now you can start cooking.
+    <SingleRecipeCard v-if="screen === 0" :recipe="data.data.attributes.recipe.data.attributes" @next="next"/>
+    <MealExcellentChoice v-if="screen === 1" :meal="data.data" @prev="prev"/>
+    <SingleMealUploadImage v-if="screen === 2" :meal="data.data"
+                           @reload="execute"
+                           @prev="prev"
+                           @next="next"
+                           imageKey="ingredients_image"/>
 
-Can't wait to see the result!"
-    />
-    <SingleMealCard v-if="screen === 3" :data="data"/>
-    <SingleMealUploadImage v-if="screen === 4" :data="data" @reload="execute" imageKey="meal_image"/>
-    <SingleMealSuccess
-        v-if="screen === 5"
-        title="Looks delicious!"
-        description="The reward for cooking is already in your Wallet.
+    <SingleRecipeCard v-if="screen === 3" :recipe="data.data.attributes.recipe.data.attributes" button-title="progresss" @next="next"/>
+    <MealExcellentChoice v-if="screen === 4" :meal="data.data" @prev="prev"/>
 
-Check it and enjoy your meal!"
-    />
-    <SingleMealSetSocialLink v-if="screen === 6" :data="data" @reload="execute"/>
+    <SingleMealUploadImage v-if="screen === 5" :meal="data.data"
+                           @reload="execute"
+                           @prev="prev"
+                           @next="next"
+                           imageKey="meal_image"/>
+
+    <SingleMealSetSocialLink v-if="screen === 6" :meal="data.data" @reload="execute" @next="next"/>
     <SingleMealSuccess
         v-if="screen === 7"
         title="Have a great day!"
         description="You can see history of your meals."
         :showHistory="true"
+        @next="finish"
     />
 
 

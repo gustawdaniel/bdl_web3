@@ -2,9 +2,8 @@ import { getFastifyServer } from '../src/fastify'
 import {seed} from "../src/storage/seed";
 import {prisma} from "../src/storage/prisma";
 
-
-describe('address is ok', () => {
-  it('rest address', async () => {
+describe('searching user by address', () => {
+  it('address not found', async () => {
     await seed();
 
     const server = await getFastifyServer()
@@ -22,7 +21,7 @@ describe('address is ok', () => {
     }))
   })
 
-  it('rest address positive', async () => {
+  it('address found and nonce is correct', async () => {
     await prisma.users.upsert({
       where: {
         address: "abc"
@@ -31,7 +30,9 @@ describe('address is ok', () => {
         address: "abc",
         nonce: "secret"
       },
-      update: {}
+      update: {
+        nonce: "secret"
+      }
     })
 
     const server = await getFastifyServer()
