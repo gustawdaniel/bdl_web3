@@ -40,6 +40,7 @@ export interface RecipeAttributes {
     photo: Image
     nutrition: Nutrition[]
     ingredients: Nutrition[]
+    instruction: string
 }
 
 export interface Recipe {
