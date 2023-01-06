@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 
 import {computed, nextTick, ref, useCookie, useLazyFetch, useRuntimeConfig, watch} from "#imports";
+import { XCircleIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 
 const token = useCookie('token');
 const user = useCookie('user');
@@ -69,6 +70,7 @@ const {data, error, execute, pending} = await useLazyFetch<{ jwt: string }>(`${r
 const emit = defineEmits(['reload']);
 
 watch(data, async (value) => {
+  console.log("value", value);
   token.value = value.jwt;
   user.value = value.user;
 
@@ -78,9 +80,12 @@ watch(data, async (value) => {
 })
 
 function login() {
-  if (JSON.stringify(loginRequestBody.value) === JSON.stringify(formBody.value)) {
+  console.log(1, formBody.value, data.value);
+  if ( JSON.stringify(loginRequestBody.value) === JSON.stringify(formBody.value)) {
+    console.log(2);
     execute()
   } else {
+    console.log(3);
     loginRequestBody.value = formBody.value;
   }
 }
@@ -124,6 +129,9 @@ function togglePasswordShown() {
   passwordShown.value = !passwordShown.value;
 }
 
+const loading = computed<boolean>(() => {
+  return Boolean(pending.value) && (Boolean(data.value || false) || Boolean(error.value || false));
+})
 </script>
 
 <template>
@@ -211,8 +219,30 @@ function togglePasswordShown() {
       <NuxtLink><span class="text-red-500 text-sm font-semibold">Forgot password?</span></NuxtLink>
     </div>
 
-    <button type="submit" :class="[isLogin ? 'mb-4' : 'mb-8', 'text-white bg-red-500 w-full rounded-full p-2.5 mt-4 shadow-lg']">
-      {{ isLogin ? 'Login' : 'Register' }}
+    <div class="rounded-md bg-red-50 p-4" v-if="error">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <XCircleIcon class="h-5 w-5 text-red-400" aria-hidden="true" />
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-red-800"><span class="font-bold">{{error.name}}</span>: {{ error.message }}</p>
+        </div>
+        <div class="ml-auto pl-3">
+          <div class="-mx-1.5 -my-1.5">
+            <button type="button" class="inline-flex rounded-md bg-red-50 p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600
+            focus:ring-offset-2 focus:ring-offset-red-50"
+                    @click="error = null"
+            >
+              <span class="sr-only">Dismiss</span>
+              <XMarkIcon class="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button :type="loading ? 'button' : 'submit'" :class="[isLogin ? 'mb-4' : 'mb-8', 'text-white bg-red-500 w-full rounded-full p-2.5 mt-4 shadow-lg']">
+      {{ loading ? 'Loading...' : (isLogin ? 'Login' : 'Register') }}
     </button>
 
     <p v-if="isLogin" class="text-sm text-center">Don’t have an account?

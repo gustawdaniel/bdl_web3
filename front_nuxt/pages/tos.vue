@@ -1,4 +1,16 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import {onMounted, useCookie} from "#imports";
+import {User} from "~/helpers/api";
+
+const token = useCookie('token');
+const user = useCookie<User | ''>('user');
+
+onMounted(() => {
+    console.log("user.value", user.value);
+    console.log("token.value", token.value);
+});
+
+</script>
 
 <template>
   <div class="relative overflow-hidden bg-white py-16">

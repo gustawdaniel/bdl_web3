@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {onMounted, useCookie, useRouter, useRuntimeConfig} from "#imports";
+import {computed, onMounted, useCookie, useRouter, useRuntimeConfig} from "#imports";
 import {User} from "~/helpers/api";
 
 const token = useCookie('token');
@@ -12,6 +12,9 @@ function reload() {
   console.log("reload");
   token.value = useCookie('token').value
   user.value = useCookie<User | ''>('user').value
+
+  console.log(user.value);
+
   if(user.value) {
     if (user.value.wallet_address) {
       router.push('/recipes')
@@ -19,7 +22,7 @@ function reload() {
       router.push('/connect-wallet');
     }
   } else {
-    
+
   }
 }
 
@@ -33,6 +36,7 @@ function logout() {
   token.value = '';
   user.value = '';
 }
+
 </script>
 
 <template>

@@ -29,26 +29,22 @@ const nftList = [
     title: '10% discount',
     description: 'Barilla',
     value: 40,
-    picture:
-        'https://s3-alpha-sig.figma.com/img/e058/8513/50dfe580c5e0fae05814a0b033967061?Expires=1672617600&Signature=Gf0iYqjVJNi7hBKfKb87bjSCXXVecFjkVF1oc9VX-2F5EbfQReEG5k8cx1JtKpdv1raTZ5j4GLqFDCoIZjJHSoSWD0jDrE8N3CJY~UBKEydHLAelnwyapOrsYRiYo5V3mfV9pTWqBsWcfT1Vr78zXLLL~HExaGrC9B~8G3IEIPqeQn1xfJ-Oq1u5nMX3SO-OXKTs3ypOQf0i3cAUYeaaLaBrNYvl9FU0Jb4yXNJVnvYAv~1v4KZ6XshaN5K5vID8qxvlKKjNtcmhMOxjSx605qDbem7512gmABkN4je1PKzToSdeGlfgdcYOBxsJghsCrML0CbAdYjJ3RulUineLlw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    picture: '/nft/n1.jpeg',
   }, {
     title: 'Free jar in Coned',
     description: 'Nutella',
     value: 40,
-    picture:
-        'https://s3-alpha-sig.figma.com/img/58f6/0297/e948b4fc6a640aef6f94655d69a823c3?Expires=1672617600&Signature=ooibwmrf1~g-F6626PCzdrzuNRSb2rBUWHQl-vkVV9F9Ue46RFqvDj7M3Qqyvcis9ISYpY4U~~3nrYUYOQpCx0LRRHx7eD09MX0Vk6-GCp7SGXqHvqNRpMTeAp2jB9Lx70Y4iLlCjdrPo~PBHKr4LMUmU41EqDNovwM5j5PPBMMucWKnO84euhvzeAp2j-hHE0Ib2LrGhQuEkPojZSe8DbPZwY~rKttjsAI-POxMX2Qc~dC9rN10WgvspScV8pzVcxjekYiiIkv70nWZMc5Tvuw1XTIbRhkaLIC-6V-XdIaFxgskdLtYtmPr~blHNNMKVIA5cFDi~~5zqbDWnovPTQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    picture: '/nft/n2-min.png',
   }, {
     title: '15% discount',
     description: 'Coca-cola & Esselunga',
     value: 40,
-    picture:
-        'https://s3-alpha-sig.figma.com/img/533b/7295/e9a5720e36cda9d5facb2b4807c6e6bf?Expires=1672617600&Signature=TBNTN8~35mlq~qElL1AEkLyKS6STtNdvCL0jM5W2YHpkKQkl5Qf3Zx0S5-NDe8-uA77icwNpnEtu2R6c8XglrtOEEBtv0PwrrOo-Ls0xcZS6Yd1jl4mllPlkzl6EhwwX682A7Xatz1F4Rw3mmuio0E9ZSVbyVn8VTs-5X8jhYo4MYKS1uguNIIypJ5~PgvhXeH9JiO4~edEr0S5PLWNjh4N9WX7laGY5oVLiX51CF3uiN3v1t6gFMlXYtOMDst7A7UvhRPCAsps2kteGulz7VKeg96Quq5z4z0-2RN5vc1WdDktN2vrPJ0qI8Knsg1BgGEYQ61Jk6rh0SmSqD47cJg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    picture: '/nft/n3-min.png',
   }, {
     title: 'Free master-class',
     description: 'Heinz',
     value: 40,
-    picture:
-        'https://s3-alpha-sig.figma.com/img/087a/08fc/179af0cd48d5ba34f3758a84215d35b1?Expires=1672617600&Signature=KvY-Ir5JLDssp1XDRMkibFJ7BY4UzkNsoUPSLf0~-8svamyVZu2gSC3V08JvGDE3UajX8fHulgDUN4p2JDo5n9pBi2KdI94o3Nc~Essrh8LUk83Ly5irbtWTgM095YfMhkZtcb6xeUBH8XBVA9RLyD9MBOw11RSY5eBEcGo9fJn0GCObty4KKeQeOp55TvkYVSqIGGo6s-Vy-057r1Pz3Tl7aptVjabmw7JKdh0-ixaG9Ljqa9d5Sz-9RrrZ8L0Xjxs4065TfgL5T3XDMeAjRpbiDHkuOmRust2ZjvwccGbzdi5Ui4PJmdKnfIm1lfx8WoifTyAAPbo1SglMFty8Rg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
+    picture: '/nft/n4-min.png',
   },
 ]
 
