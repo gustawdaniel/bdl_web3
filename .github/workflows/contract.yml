@@ -1,0 +1,22 @@
+name: Contract
+
+on:
+  push:
+    branches: [ "prod", "main" ]
+    paths: [ 'contract/**' ]
+
+jobs:
+  image:
+    defaults:
+      run:
+        working-directory: contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm i
+      - name: Test Contract
+        run: npx hardhat test

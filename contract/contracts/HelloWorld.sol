@@ -1,18 +1,33 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity >= 0.8.9;
 
-contract HelloWorld {
-    event UpdatedMessages(string oldStr, string newString);
+contract Token {
+    string public name = "My Hardhat Token";
+    string public symbol = "MHT";
 
-    string public message;
+    uint public totalSupply = 1000000;
 
-    constructor(string memory initMessage) {
-        message = initMessage;
+    address public owner;
+
+    mapping(address => uint256) balances;
+
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+
+    constructor() {
+        balances[msg.sender] = totalSupply;
+        owner = msg.sender;
     }
 
-    function update(string memory newMessage) public {
-        string memory oldMsg = message;
-        message = newMessage;
-        emit UpdatedMessages(oldMsg, newMessage);
+    function transfer(address to, uint256 amount) external {
+        require(balances[msg.sender] >= amount, "Not enough tokens");
+
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+
+        emit Transfer(msg.sender, to, amount);
+    }
+
+    function balanceOf(address account) external view returns (uint256) {
+        return balances[account];
     }
 }
