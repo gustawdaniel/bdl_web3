@@ -1,3 +1,5 @@
+[![Contract](https://github.com/gustawdaniel/bdl_web3/actions/workflows/contract.yml/badge.svg)](https://github.com/gustawdaniel/bdl_web3/actions/workflows/contract.yml)
+
 # Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
