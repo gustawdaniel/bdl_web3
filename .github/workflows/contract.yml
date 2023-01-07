@@ -7,7 +7,7 @@ on:
 
 jobs:
   image:
-    environment:
+    env:
       POLYGON_ALCHEMY_API_URL: ${{ secrets.POLYGON_ALCHEMY_API_URL }}
       POLYGON_ALCHEMY_API_KEY: ${{ secrets.POLYGON_ALCHEMY_API_KEY }}
       METAMASK_PRIVATE_KEY: ${{ secrets.METAMASK_PRIVATE_KEY }}
