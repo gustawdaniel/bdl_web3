@@ -48,7 +48,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [local]
-            127.0.0.1 env=prod dir=strapi
+            127.0.0.1 env=prod dir=nuxt
             
             [api]
             165.22.29.8 ansible_user=root dir=nuxt

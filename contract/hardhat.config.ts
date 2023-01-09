@@ -21,6 +21,9 @@ function defaultNetwork(): string {
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
   defaultNetwork: defaultNetwork(),
+  paths: {
+    tests: "./test/contract",
+  },
   networks: {
     hardhat: {
       accounts: {
@@ -35,7 +38,7 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      polygonMumbai: POLYGON_ALCHEMY_API_KEY
+      polygonMumbai: `${POLYGON_ALCHEMY_API_KEY}`
     }
   }
 };

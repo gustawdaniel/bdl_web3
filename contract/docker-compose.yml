@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  rest:
+    image: registry.digitalocean.com/main/bdl-web3-contract
+    ports:
+      - ${DOCKER_PORT_REST}:4000
+    env_file:
+      - .env
+    environment:
+      - VIRTUAL_HOST=${HOST}
+      - LETSENCRYPT_HOST=${HOST}
+      - VIRTUAL_PORT=${DOCKER_PORT}
+    command: node ./src/rest.js
+
+networks:
+  default:
+    external:
+      name: ${NETWORK:-proxy}
