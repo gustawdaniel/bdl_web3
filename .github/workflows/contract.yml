@@ -5,6 +5,9 @@ on:
     branches: [ "prod"]
     paths: [ 'contract/**' ]
 
+env:
+  DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
+
 jobs:
   testing:
     runs-on: ubuntu-latest

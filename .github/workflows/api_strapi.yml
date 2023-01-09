@@ -7,8 +7,6 @@ on:
 
 env:
   DOCKER_REGISTRY_DOMAIN: registry.digitalocean.com
-  USERNAME: root
-  HOST: 165.22.29.8
 
 jobs:
   image:
