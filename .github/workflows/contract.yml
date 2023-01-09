@@ -7,6 +7,7 @@ on:
 
 jobs:
   testing:
+    runs-on: ubuntu-latest
     env:
       POLYGON_ALCHEMY_API_URL: ${{ secrets.POLYGON_ALCHEMY_API_URL }}
       POLYGON_ALCHEMY_API_KEY: ${{ secrets.POLYGON_ALCHEMY_API_KEY }}
@@ -15,7 +16,6 @@ jobs:
     defaults:
       run:
         working-directory: contract
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -30,6 +30,11 @@ jobs:
 
   image:
     runs-on: ubuntu-latest
+    env:
+      POLYGON_ALCHEMY_API_URL: ${{ secrets.POLYGON_ALCHEMY_API_URL }}
+      POLYGON_ALCHEMY_API_KEY: ${{ secrets.POLYGON_ALCHEMY_API_KEY }}
+      METAMASK_PRIVATE_KEY: ${{ secrets.METAMASK_PRIVATE_KEY }}
+      CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
     defaults:
       run:
         working-directory: contract
@@ -72,4 +77,6 @@ jobs:
             [api]
             165.22.29.8 ansible_user=root dir=contract
 
-    needs: image
+    needs:
+      testing
+      image
