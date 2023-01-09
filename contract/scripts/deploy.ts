@@ -7,8 +7,8 @@ async function main() {
 
     // const lockedAmount = ethers.utils.parseEther("1");
 
-    const HelloWorld = await ethers.getContractFactory("HelloWorld");
-    const hello = await HelloWorld.deploy("ok", );
+    const HelloWorld = await ethers.getContractFactory("Token");
+    const hello = await HelloWorld.deploy();
 
     // await lock.deployed({
     //     value: lockedAmount

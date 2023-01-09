@@ -9,3 +9,6 @@ Current frontend status:
 > branch main to dev
 > 
 > branch prod to deploy
+
+
+0x602DdfA8F649627F17e78d1dB5Ba2E759AD0d671

@@ -13,3 +13,12 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.ts
 ```
+
+Coinbase wallet:
+
+0xf3c0278076003fa8f1f49eb026422d7c14fe9c04
+
+Metamask wallet:
+
+0xA68701D9B3eB52F0A7248E7b57d484411A60B045
+

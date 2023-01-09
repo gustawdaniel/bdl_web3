@@ -54,6 +54,17 @@
       "relation": "manyToOne",
       "target": "api::recipe.recipe",
       "inversedBy": "meals"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "review",
+        "accepted",
+        "rejected"
+      ],
+      "default": "new",
+      "required": true
     }
   }
 }
