@@ -13,7 +13,6 @@ async function main() {
     // await lock.deployed({
     //     value: lockedAmount
     // });
-
     console.log(`deployed to ${hello.address}`);
 }
 
