@@ -9,4 +9,5 @@ COPY  package*.json ./
 RUN npm ci
 COPY . ./
 
+RUN npx hardhat compile
 RUN npm run build
