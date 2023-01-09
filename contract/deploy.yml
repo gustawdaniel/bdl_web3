@@ -1,5 +1,5 @@
 ---
-- name: Deploy Strapi
+- name: Deploy Contract
   hosts: api
   tags:
     - deploy

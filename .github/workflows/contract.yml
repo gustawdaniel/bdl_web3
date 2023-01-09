@@ -52,9 +52,6 @@ jobs:
 
   reload:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: contract
     steps:
       - uses: actions/checkout@v3
       - name: prepare env
@@ -64,14 +61,14 @@ jobs:
           DOCKER_PORT=4000
           EOF
           )
-          echo "$ENV" > .env
+          echo "$ENV" > contract/.env
       - name: read env
-        run: cat .env
+        run: cat contract/.env
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: deploy.yml
-          directory: .
+          directory: ./contract
           key: ${{secrets.SSH_PRIVATE_KEY}}
           inventory: |
             [local]
