@@ -78,5 +78,5 @@ jobs:
             165.22.29.8 ansible_user=root dir=contract
 
     needs:
-      testing
-      image
+      - testing
+      - image
