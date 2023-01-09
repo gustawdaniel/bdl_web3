@@ -84,27 +84,27 @@ function finish() {
 </script>
 
 <template>
-  <div>
-    <NuxtLink :to="`/recipes`">
-      <button>Recipes</button>
-    </NuxtLink>
-    <NuxtLink v-if="data" :to="`/recipes/${data.data.attributes.recipe.data.id}`">
-      <button>This Recipe</button>
-    </NuxtLink>
+<!--  <div>-->
+<!--    <NuxtLink :to="`/recipes`">-->
+<!--      <button>Recipes</button>-->
+<!--    </NuxtLink>-->
+<!--    <NuxtLink v-if="data" :to="`/recipes/${data.data.attributes.recipe.data.id}`">-->
+<!--      <button>This Recipe</button>-->
+<!--    </NuxtLink>-->
 
-    Meal: {{ route.params.id }}
-  </div>
+<!--    Meal: {{ route.params.id }}-->
+<!--  </div>-->
 
   <div v-if="pending">
     Loading...
   </div>
   <div v-else>
     <hr>
-    <div>
-      <button @click="prev">Prev</button>
-      <span>{{ screen }}</span>
-      <button @click="next">Next</button>
-    </div>
+<!--    <div>-->
+<!--      <button @click="prev">Prev</button>-->
+<!--      <span>{{ screen }}</span>-->
+<!--      <button @click="next">Next</button>-->
+<!--    </div>-->
 
     <SingleRecipeCard v-if="screen === 0" :recipe="data.data.attributes.recipe.data.attributes" @next="next"/>
     <MealExcellentChoice v-if="screen === 1" :meal="data.data" @prev="prev"/>
@@ -128,13 +128,14 @@ function finish() {
         v-if="screen === 7"
         title="Have a great day!"
         description="You can see history of your meals."
+        :meal="data.data"
         :showHistory="true"
         @next="finish"
     />
 
 
     <hr>
-    <pre>{{ data }}</pre>
+<!--    <pre>{{ data }}</pre>-->
   </div>
 </template>
 

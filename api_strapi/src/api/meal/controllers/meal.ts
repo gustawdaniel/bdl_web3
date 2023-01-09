@@ -93,8 +93,6 @@ export default factories.createCoreController('api::meal.meal',  ({ strapi }) =>
       // Publish to my-channel-1 or my-channel-2 randomly.
       const channel = `transactions`;
 
-
-
       console.log(meal);
 
       // Message can be either a string or a buffer

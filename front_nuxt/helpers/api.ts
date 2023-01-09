@@ -52,6 +52,7 @@ export interface Meal {
     id: number
     attributes: {
         name: string,
+        status: 'new' | 'review' | 'accepted' | 'rejected',
         social_media_post?: string,
         dish_token: number,
         adm_token: number,
