@@ -4,7 +4,7 @@ services:
   rest:
     image: registry.digitalocean.com/main/bdl-web3-contract
     ports:
-      - ${DOCKER_PORT_REST}:4000
+      - ${DOCKER_PORT}:4000
     env_file:
       - .env
     environment:
