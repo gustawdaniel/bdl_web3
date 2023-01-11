@@ -3,7 +3,12 @@ import {Button, Flex, Alert} from '@strapi/design-system'
 import {Check, Cross} from '@strapi/icons'
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 
-const API_TOKEN = `1819ff232c5daeb5e6cb0326a7cb48d8a2870596e550f743643184cade5f8e203c20bbcd972e8d18a43e9ed93745b9f07ea091634fe4f1adc631a7f12d7d8a95e3ed377088f8d13219871b9550afc0ca708edd7f61b34532dba4e107e0c957f721dbb40a18c957b1446540f760f823e52121f09d60e897908a04e7d846e519d4`;
+function getApiToken() {
+  const prodToken = `c33aca4ba4899b909da792b8c9cda1f442f0f1c25e354c07b41e708acc80bc9c06b4ff3dd0be5d46e251510dd004def54041afd272874634036e0c69a8e311d3ab4a1b110d8d5770d463afc745ad4e7ab34cae6bc381b2aead4a301ea5225cdec3584f552288b5594286eed3f863a0709a11fb8195fd0264625a942f62da90b6`;
+  const localToken = `1819ff232c5daeb5e6cb0326a7cb48d8a2870596e550f743643184cade5f8e203c20bbcd972e8d18a43e9ed93745b9f07ea091634fe4f1adc631a7f12d7d8a95e3ed377088f8d13219871b9550afc0ca708edd7f61b34532dba4e107e0c957f721dbb40a18c957b1446540f760f823e52121f09d60e897908a04e7d846e519d4`;
+
+  return location.origin.includes('localhost') ? localToken : prodToken;
+}
 
 interface MealAttributes {
   social_media_post: string,
@@ -37,7 +42,7 @@ export function ReviewButtons(args) {
       }
     }, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`
+        Authorization: `Bearer ${getApiToken()}`
       }
     } as AxiosRequestConfig<any>).then((res) => {
       console.log("res", res);
@@ -57,7 +62,7 @@ export function ReviewButtons(args) {
       }
     }, {
       headers: {
-        Authorization: `Bearer ${API_TOKEN}`
+        Authorization: `Bearer ${getApiToken()}`
       }
     } as AxiosRequestConfig<any>).then((res) => {
       console.log("res", res);
@@ -82,13 +87,13 @@ export function ReviewButtons(args) {
     });
 
     console.log("process.env", process.env);
-    console.log("API_TOKEN", API_TOKEN);
+    console.log("getApiToken()", getApiToken());
 
     useEffect(() => {
 
       axios.get(`${fixOrigin(location.origin)}/api/meals/${id}`, {
         headers: {
-          Authorization: `Bearer ${API_TOKEN}`
+          Authorization: `Bearer ${getApiToken()}`
         }
       } as AxiosRequestConfig<any>).then((res) => {
         console.log("res", res);
