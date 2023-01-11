@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {definePageMeta, ref, useCookie, useRouter} from "#imports";
+import {definePageMeta, ref, useCookie, useLazyFetch, useRouter, useRuntimeConfig} from "#imports";
 import {User} from "~/helpers/api";
 import {CookieRef} from "#app";
 
@@ -21,7 +21,8 @@ import dish from '../assets/dish.svg';
 import {
   Square2StackIcon,
   ArrowUpRightIcon,
-  ArrowSmallDownIcon
+  ArrowSmallDownIcon,
+  TrashIcon
 } from '@heroicons/vue/24/outline';
 
 const nftList = [
@@ -61,7 +62,7 @@ const tokens = [
   },
 ]
 
-function formatBigNumber(number:number): string {
+function formatBigNumber(number: number): string {
   return (number).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 }
@@ -75,6 +76,37 @@ function copyAddress() {
     copiedNotification.value = false
   }, 3000);
 }
+
+const config = useRuntimeConfig();
+
+const requestUrl = ref<string>(`${config.public.baseUrl}/api/users/${user.value?.id}`)
+
+const updateWalletBody = ref<Pick<'wallet_address' | 'wallet_type', User>>({
+  wallet_address: '',
+  wallet_type: null
+});
+
+const {data, error: requestError, execute, pending} = await useLazyFetch<{ jwt: string }>(`${requestUrl.value}`, {
+  body: updateWalletBody,
+  method: 'put',
+  immediate: false,
+  watch: [],
+  headers: {
+    Authorization: `Bearer ${token.value}`
+  },
+})
+
+function tryDisconnectWallet() {
+  const yes = confirm('Are you sure, the you want to disconnect this wallet?');
+  if(yes) {
+    execute();
+    if(user.value) {
+      user.value = Object.assign(user.value, updateWalletBody.value);
+      console.log("user.value", user.value);
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -88,12 +120,18 @@ function copyAddress() {
         </div>
       </section>
       <section class="text-xs mb-3" v-if="user?.wallet_address">
-        <p class="mb-1"><span class="capitalize">{{user?.wallet_type}}</span> Wallet, ADM</p>
-        <p class="flex items-center cursor-pointer" @click="copyAddress">
-          <span :class="['mr-2', copiedNotification ? 'text-gray-200' : '']">{{user?.wallet_address.substring(0,8)}}...{{user?.wallet_address.substring(32)}}</span>
-          <Square2StackIcon class="h-4 w-4"/>
-          <span v-if="copiedNotification" class="ml-2">Copied!</span>
-        </p>
+        <p class="mb-1"><span class="capitalize">{{ user?.wallet_type }}</span> Wallet, ADM</p>
+        <div class="flex">
+          <p class="flex items-center cursor-pointer" @click="copyAddress">
+            <span
+                :class="['mr-2', copiedNotification ? 'text-gray-200' : 'hover:text-gray-50']">{{ user?.wallet_address.substring(0, 8) }}...{{ user?.wallet_address.substring(32) }}</span>
+            <Square2StackIcon class="h-4 w-4"/>
+            <span v-if="copiedNotification" class="ml-2">Copied!</span>
+          </p>
+          <p class="flex items-center cursor-pointer hover:text-gray-50" @click="tryDisconnectWallet">
+            <TrashIcon class="h-4 w-4"/>
+          </p>
+        </div>
       </section>
       <section v-else-if="!user?.wallet_address">
         <NuxtLink to="/connect-wallet">
@@ -142,7 +180,8 @@ function copyAddress() {
     <main class="p-5">
       <section class="mb-6">
         <h3 class="font-semibold text-base mb-3">Tokens</h3>
-        <div class="flex justify-between border rounded-xl mb-2 p-4 shadow-md" v-for="(token, index) in tokens" :key="index" >
+        <div class="flex justify-between border rounded-xl mb-2 p-4 shadow-md" v-for="(token, index) in tokens"
+             :key="index">
           <div class="flex items-center">
             <img class="h-5 w-5 mr-4" :src="token.picture" :alt="token.name">
             <span class="uppercase text-sm font-semibold">{{ token.name }}</span>

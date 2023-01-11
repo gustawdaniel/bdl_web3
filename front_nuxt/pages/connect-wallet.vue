@@ -80,6 +80,7 @@ const {data, error: requestError, execute, pending} = await useLazyFetch<{ jwt: 
 const router = useRouter();
 
 watch(data, async (value) => {
+  sec.value = 3;
   console.log("value", value);
   user.value = value;
 
@@ -119,7 +120,7 @@ async function connectMetaMask() {
   }
 }
 
-function connectCoinbase() {
+async function connectCoinbase() {
   console.log("connectCoinbase");
   const coinbaseWallet = new CoinbaseWalletSDK({
     appName: APP_NAME,
@@ -130,10 +131,9 @@ function connectCoinbase() {
   const ethereum = coinbaseWallet.makeWeb3Provider(INFURA_JSON_RPC_URL, DEFAULT_CHAIN_ID)
 
   const web3 = new Web3(ethereum as any);
-  // window.web3 = web3;
   console.log("currentProvider", web3.currentProvider);
 
-  web3.currentProvider.enable();
+  await web3.currentProvider.enable();
   window.web3 = web3;
 
   const address = window.web3.currentProvider.selectedAddress;
