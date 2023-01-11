@@ -27,8 +27,16 @@ async function executeTransfer(target: string, value: number): Promise<void> {
 }
 
 async function main() {
-    const target = '0xf3c0278076003fa8f1f49eb026422d7c14fe9c04';
-    const value = 50;
+    console.log("process.argv ADDRESS", process.env.ADDRESS);
+    console.log("process.argv VALUE", process.env.VALUE);
+
+    const target = process.env.ADDRESS ?? '0xf3c0278076003fa8f1f49eb026422d7c14fe9c04';
+    const value = process.env.VALUE ? parseInt(process.env.VALUE) : 50;
+
+
+    console.log("target, value", target, value);
+    console.log("typeof target, value", typeof target, typeof value);
+
     await executeTransfer(target, value);
 }
 

@@ -9,3 +9,6 @@ up: node_modules
 
 clean:
 	tsc --build --clean
+
+ping:
+	ts-node src/ping.ts
