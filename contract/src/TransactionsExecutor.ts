@@ -9,7 +9,7 @@ export class TransactionsExecutor {
     async start() {
         await redis.subscribe(transactionsChannel)
 
-        redis.on("message", (channel, message) => {
+        redis.on("message", (channel: string, message: string) => {
             switch (channel) {
                 case transactionsChannel: {
                     console.log(JSON.parse(message));

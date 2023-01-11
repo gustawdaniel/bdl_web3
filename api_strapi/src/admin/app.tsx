@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import {Button, Flex} from '@strapi/design-system'
+import {Button, Flex, Alert} from '@strapi/design-system'
 import {Check, Cross} from '@strapi/icons'
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 
@@ -124,6 +124,16 @@ export function ReviewButtons(args) {
   }
 }
 
+function Info() {
+  const [infoClosed, setInfoClosed] = useState(false);
+
+  function closeInfo() {
+    setInfoClosed(true);
+  }
+
+  return <>{!infoClosed && <Alert closeLabel="Close alert" onClose={closeInfo} className={'mt-3'}>Custom admin works.</Alert>}</>
+}
+
 export default {
   config: {
     locales: [
@@ -159,6 +169,9 @@ export default {
     console.log(app);
     app.injectContentManagerComponent('editView', 'right-links', {
       name: 'my-compo', Component: ReviewButtons
+    });
+    app.injectContentManagerComponent('editView', 'informations', {
+      name: 'my-info', Component: Info
     });
   },
 };
