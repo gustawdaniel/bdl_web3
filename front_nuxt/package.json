@@ -20,6 +20,6 @@
     "@heroicons/vue": "^2.0.13",
     "@tailwindcss/typography": "^0.5.8",
     "simple-vue-camera": "^1.1.3",
-    "web3": "^1.8.1"
+    "web3": "^4.0.2"
   }
 }
