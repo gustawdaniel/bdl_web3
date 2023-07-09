@@ -13,7 +13,7 @@
     "@strapi/design-system": "^1.4.1",
     "@strapi/icons": "^1.4.1",
     "@strapi/plugin-i18n": "4.5.5",
-    "@strapi/plugin-users-permissions": "4.6.1",
+    "@strapi/plugin-users-permissions": "4.11.4",
     "@strapi/strapi": "4.8.0",
     "better-sqlite3": "^8.0.1",
     "ioredis": "^5.2.4",
